@@ -156,6 +156,7 @@ export class ArventureFeature {
       default:
         this.resetPers();
     }
+    this.type(suiteHistoire);
   }
 
   suiteHistoire(idCarte:string){
@@ -351,6 +352,7 @@ export class ArventureFeature {
           this.suiteHistoire(idHistoire);
           // NEW BACKGROUND:
           console.log(typeof document.querySelector(`img#${idHistoire}`));
+          
           if (document.querySelector(`img#${idHistoire}`)) {
             let newBackground = document.querySelector(`img#${idHistoire}`)!.getAttribute("src");
             let headerElement = document.querySelector(".masthead") as HTMLHeadingElement;
