@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ArventureFeature } from 'src/app/class/ArventureFeature';
 
 @Component({
@@ -9,10 +10,13 @@ import { ArventureFeature } from 'src/app/class/ArventureFeature';
 export class HistoireComponent implements OnInit {
 
   arventure = new ArventureFeature();
-  constructor() { }
+  constructor(private route:Router) { }
 
   ngOnInit(): void {
     this.arventure.start();
   }
 
+  redirectPerso(){
+      this.route.navigateByUrl("/arventure");
+  }
 }

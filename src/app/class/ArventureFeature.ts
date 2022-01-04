@@ -22,7 +22,6 @@ export class ArventureFeature {
     this.EventTouch();
     this.isCollide2();
     this.isCollide(this.sizeElemt('element'),this.sizeElements('img'));
-    this.type("");
     this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"));
     //this.recharger();
     
@@ -352,7 +351,7 @@ export class ArventureFeature {
           this.suiteHistoire(idHistoire);
           // NEW BACKGROUND:
           console.log(typeof document.querySelector(`img#${idHistoire}`));
-          
+
           if (document.querySelector(`img#${idHistoire}`)) {
             let newBackground = document.querySelector(`img#${idHistoire}`)!.getAttribute("src");
             let headerElement = document.querySelector(".masthead") as HTMLHeadingElement;
