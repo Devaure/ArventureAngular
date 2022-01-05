@@ -1,3 +1,5 @@
+import { Router } from "@angular/router";
+
 export class ArventureFeature {
 
   perso:HTMLImageElement = document.getElementById("element") as HTMLImageElement; 
@@ -6,12 +8,15 @@ export class ArventureFeature {
   circle:HTMLElement = document.querySelector("a.btn-circle") as HTMLElement;
   para:HTMLElement = document.querySelector(".paragraphe") as HTMLElement;
   findepluie: boolean = false;
+  waterDrop = document.createElement('i') as HTMLElement;
+  
 
-
-  constructor() {
+  constructor(private route?:Router) {
+  
   }
   
   start(){
+    this.waterDrop = document.createElement('i') as HTMLElement;
     this.perso = document.getElementById("element") as HTMLImageElement;
     this.circle = document.querySelector("a.btn-circle") as HTMLElement;
     this.para = document.querySelector(".paragraphe") as HTMLElement;
@@ -23,31 +28,33 @@ export class ArventureFeature {
     this.isCollide2();
     this.isCollide(this.sizeElemt('element'),this.sizeElements('img'));
     this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"));
-    //this.recharger();
-    
   }
 
+  startSuiteHistoire(){
+
+    this.suiteHistoire(this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element")));
+  }
 
   /**
  * Fonction qui permet de générer la pluie 
  */
   rainFall(): void {
-    const waterDrop = document.createElement('i') as HTMLElement;
+  
     let findepluie: boolean = false;
 
     if (findepluie) {
-      waterDrop.classList.add('fas');
-      waterDrop.classList.add('fa-tint');
-      waterDrop.style.left = Math.random() * window.innerWidth + 'px';
-      waterDrop.style.animationDuration = Math.random() * 2 + 's';
-      waterDrop.style.opacity = (Math.random() + 0.4).toString();
-      waterDrop.style.fontSize = Math.random() * 15 + 'px';
+      this.waterDrop.classList.add('fas');
+      this.waterDrop.classList.add('fa-tint');
+      this.waterDrop.style.left = Math.random() * window.innerWidth + 'px';
+      this.waterDrop.style.animationDuration = Math.random() * 2 + 's';
+      this.waterDrop.style.opacity = (Math.random() + 0.4).toString();
+      this.waterDrop.style.fontSize = Math.random() * 15 + 'px';
     }
 
-    document.body.appendChild(waterDrop);
+    document.body.appendChild(this.waterDrop);
 
     setTimeout(() => {
-      waterDrop.remove();
+      this.waterDrop.remove();
     }, 1000)
 
   }
@@ -105,6 +112,7 @@ export class ArventureFeature {
    * @param lieu Function qui permet de générer l'histoire
    */
   genererHistoire(lieu: string) {
+    console.log("genererHistoire", lieu);
     this.comte.innerHTML = "";
     this.circle.style.cssText = "transform: translateX(-100vw) rotate(360deg); -webkit-transition: 1s 500ms;";
 
@@ -159,6 +167,7 @@ export class ArventureFeature {
   }
 
   suiteHistoire(idCarte:string){
+    console.log("function suite histoire idCarte", idCarte);
     switch(idCarte){
         case 'carte1':
             this.genererHistoire("tempête");
@@ -176,7 +185,7 @@ export class ArventureFeature {
             this.genererHistoire("refuge");
             break;
         default:
-          this.recharger();
+          //this.recharger();
     }
   }
 
@@ -212,7 +221,7 @@ export class ArventureFeature {
 
     if (isTag) return this.type(str);
     setTimeout(this.type, 72);
-    this.resetPers();
+    this.resetPers(str);
   
   };
 
@@ -330,7 +339,7 @@ export class ArventureFeature {
       console.log(`img pos right/left:  ${img[i].x} , largeur img: ${img[i].width}`);
       console.log(`pers pos top/bottom:  ${pers.y} , hauteur pers: ${pers.height}`);
       console.log(`pers pos right/left:  ${pers.x} , largeur pers: ${pers.width}`);
-
+      console.log("suiteHisoire", this.suiteHistoire(this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"))));
       var pad = 70;
       if (pers.y + pers.height + img[i].height - pad < img[i].height) {
 
@@ -341,16 +350,20 @@ export class ArventureFeature {
         console.log("en dehors en bas");
 
       } else if (pers.x + pers.height - pad < img[i].x || pers.x + pers.width > img[i].x) {
-        console.log(this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element")));
+        console.log("carteId", this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element")));
         console.log("coucou");
-
+ 
         if (localStorage.getItem("coucou") == "0") {
 
-          localStorage.setItem("coucou", "1");
+          localStorage.setItem("coucou", "1"); 
+       
           let idHistoire = this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"));
+          console.log(idHistoire);
           this.suiteHistoire(idHistoire);
+          
+         
           // NEW BACKGROUND:
-          console.log(typeof document.querySelector(`img#${idHistoire}`));
+          console.log(typeof document.querySelector(`img#${this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"))}`));
 
           if (document.querySelector(`img#${idHistoire}`)) {
             let newBackground = document.querySelector(`img#${idHistoire}`)!.getAttribute("src");
