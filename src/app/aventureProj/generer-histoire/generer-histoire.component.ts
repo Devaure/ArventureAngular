@@ -23,4 +23,21 @@ export class GenererHistoireComponent implements OnInit {
   redirectHome(){
     this.router.navigateByUrl("/histoire");
   }
+  bground(){
+    const id= this.route.snapshot.params['id'];
+    let bg:any;
+    if (id==="carte1"){
+      bg='masthead tempete';
+    }
+    else if (id==="carte2"){
+      bg='masthead montagne'
+    }
+    else if (id==="carte3"){
+      bg='masthead foret'
+    }
+    else if (id==="carte4"){
+      bg='masthead refuge'
+    }
+    return bg
+  }
 }

@@ -1,0 +1,12 @@
+    <div id="presentationCartes" class="image">
+    <!-- new card -->
+    <div class="carte" *ngFor="let card of cardList">
+        <h4>
+            {{card.title}}
+        </h4>
+        <div id="carte{{card.id}}">
+            <img loading="lazy" class="img" src="../../../assets/images/{{card.img}}" alt={{card.alt}} id="carte{{card.id}}">
+        </div>
+        {{isCollideOk()}}
+    </div>
+</div>

@@ -41,10 +41,30 @@ html, body,* {
                                        
                                        
   */
-  header.masthead{
+  .masthead{
     background: url("../../../assets/images/bg_ok.webp") no-repeat;
     background-size: cover;
   }
+
+  .tempete{
+    background: url("../../../assets/images/tempete_ok.webp") no-repeat !important;
+    background-size: cover;
+  }
+
+  .montagne{
+    background: url("../../../assets/images/moutains_ok.webp") no-repeat !important;
+    background-size: cover;
+  }
+  .foret{
+    background: url("../../../assets/images/forestGood.webp") no-repeat !important;
+    background-size: cover;
+  }
+
+  .refuge{
+    background: url("../../../assets/images/refuge_ok.webp") no-repeat !important;
+    background-size: cover;
+  }
+
   .bg-image {
     overflow-x: hidden;
     overflow-y: overlay;

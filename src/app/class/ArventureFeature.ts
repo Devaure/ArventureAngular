@@ -51,6 +51,12 @@ export class ArventureFeature {
     this.circle = document.querySelector("a.btn-circle") as HTMLElement;
     this.comte = document.getElementById('comte') as HTMLElement;
     this.para = document.querySelector(".paragraphe") as HTMLElement;
+    setInterval(this.rainFall, 0.5);
+    if(id=="carte1"){
+      setInterval(this.rainFall, 0.5);
+    }else{
+      alert("sorry bro': "+id);
+    }
     this.EventTouch();
     return this.suiteHistoire(id);
   }
@@ -59,17 +65,14 @@ export class ArventureFeature {
  * Fonction qui permet de générer la pluie 
  */
   rainFall(): void {
-
-    let findepluie: boolean = false;
-
-    if (findepluie) {
+      this.waterDrop = document.createElement('i') as HTMLElement;
       this.waterDrop.classList.add('fas');
       this.waterDrop.classList.add('fa-tint');
       this.waterDrop.style.left = Math.random() * window.innerWidth + 'px';
       this.waterDrop.style.animationDuration = Math.random() * 2 + 's';
       this.waterDrop.style.opacity = (Math.random() + 0.4).toString();
       this.waterDrop.style.fontSize = Math.random() * 15 + 'px';
-    }
+
 
     document.body.appendChild(this.waterDrop);
 
@@ -117,14 +120,16 @@ export class ArventureFeature {
     if (suiteHistoire.length == this.comte?.innerHTML.length + 1) {
       console.log("fin de l'histoire");
       this.circle.style.cssText = "transform: translateX(0vw) rotate(360deg); -webkit-transition: 1s 500ms;";
-      this.para.style.overflowY = "visible";
+      this.para.style.overflowY = "visible !important";
       localStorage.setItem("coucou", "0");
       this.findepluie = true;
     }
-    this.perso.style.removeProperty('bottom');
-    this.perso.style.bottom = "150px;";
-    this.perso.style.removeProperty('right');
-    this.perso.style.removeProperty('left');
+    if(this.perso){
+      this.perso.style.removeProperty('bottom');
+      this.perso.style.bottom = "150px;";
+      this.perso.style.removeProperty('right');
+      this.perso.style.removeProperty('left');
+    }
   }
 
   /**
@@ -385,7 +390,7 @@ export class ArventureFeature {
           console.log(typeof document.querySelector(`img#${this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"))}`));
 
           if (document.querySelector(`img#${idHistoire}`)) {
-            let newBackground = document.querySelector(`img#${idHistoire}`)!.getAttribute("src");
+            let newBackground = document.querySelector(`img#${this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"))}`)!.getAttribute("src");
             
             let headerElement = document.querySelector(".masthead") as HTMLHeadingElement;
             headerElement.style.cssText = `background:url(${newBackground}) no-repeat center/cover; background-position:bottom;`;
