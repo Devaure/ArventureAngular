@@ -1,0 +1,33 @@
+/*
+   _____ ______ _   _ ______ _____            _      
+  / ____|  ____| \ | |  ____|  __ \     /\   | |     
+ | |  __| |__  |  \| | |__  | |__) |   /  \  | |     
+ | | |_ |  __| | . ` |  __| |  _  /   / /\ \ | |     
+ | |__| | |____| |\  | |____| | \ \  / ____ \| |____ 
+  \_____|______|_| \_|______|_|  \_\/_/    \_\______|
+                                                     
+                                                     
+*/
+
+html, body,* {
+    overflow-y: hidden !important;
+  }
+  body{
+    background: #01011e;
+  }
+  ::-webkit-scrollbar {
+    margin: 0;
+    height: 0px;
+    width: 0px;
+    background: rgba(0,0,0,.75);
+    transform: scaleX(-100vw);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: grey;
+    -webkit-border-radius: 1ex;
+  }
+  
+  ::-webkit-scrollbar-corner {
+    background: rgba(0,0,0,.75);
+  }
