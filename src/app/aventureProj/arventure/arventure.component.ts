@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ArventureFeature } from 'src/app/class/ArventureFeature';
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> feature/testDev
 @Component({
   selector: 'app-arventure',
   templateUrl: './arventure.component.html',
@@ -10,6 +14,7 @@ import { ArventureFeature } from 'src/app/class/ArventureFeature';
 export class ArventureComponent implements OnInit {
 arventure:ArventureFeature;
    id:string;
+<<<<<<< HEAD
    cardList:any[]= [
       {id: 1, img: 'tempete_ok.webp', title: 'Tempête', alt: 'tempete'},
       {id: 2, img: 'moutains_ok.webp', title: 'Montagne', alt: 'montagne'},
@@ -21,6 +26,13 @@ arventure:ArventureFeature;
      this.arventure = new ArventureFeature();
    }
  
+=======
+ 
+  constructor(private route:Router) {
+     this.arventure = new ArventureFeature();
+   }
+  
+>>>>>>> feature/testDev
   ngOnInit(): void {
     this.arventure.start();
   }
