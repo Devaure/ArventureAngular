@@ -383,10 +383,9 @@ export class ArventureFeature {
 
           // NEW BACKGROUND:
           console.log(typeof document.querySelector(`img#${this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"))}`));
-
+          
           if (document.querySelector(`img#${idHistoire}`)) {
             let newBackground = document.querySelector(`img#${idHistoire}`)!.getAttribute("src");
-            
             let headerElement = document.querySelector(".masthead") as HTMLHeadingElement;
             headerElement.style.cssText = `background:url(${newBackground}) no-repeat center/cover; background-position:bottom;`;
           }
