@@ -117,14 +117,16 @@ export class ArventureFeature {
     if (suiteHistoire.length == this.comte?.innerHTML.length + 1) {
       console.log("fin de l'histoire");
       this.circle.style.cssText = "transform: translateX(0vw) rotate(360deg); -webkit-transition: 1s 500ms;";
-      this.para.style.overflowY = "visible";
+      this.para.style.overflowY = "visible !important";
       localStorage.setItem("coucou", "0");
       this.findepluie = true;
     }
-    this.perso.style.removeProperty('bottom');
-    this.perso.style.bottom = "150px;";
-    this.perso.style.removeProperty('right');
-    this.perso.style.removeProperty('left');
+    if(this.perso){
+      this.perso.style.removeProperty('bottom');
+      this.perso.style.bottom = "150px;";
+      this.perso.style.removeProperty('right');
+      this.perso.style.removeProperty('left');
+    }
   }
 
   /**
@@ -385,7 +387,7 @@ export class ArventureFeature {
           console.log(typeof document.querySelector(`img#${this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"))}`));
 
           if (document.querySelector(`img#${idHistoire}`)) {
-            let newBackground = document.querySelector(`img#${idHistoire}`)!.getAttribute("src");
+            let newBackground = document.querySelector(`img#${this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"))}`)!.getAttribute("src");
             
             let headerElement = document.querySelector(".masthead") as HTMLHeadingElement;
             headerElement.style.cssText = `background:url(${newBackground}) no-repeat center/cover; background-position:bottom;`;
