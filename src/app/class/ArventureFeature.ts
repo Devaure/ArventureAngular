@@ -2,44 +2,64 @@ import { Router } from "@angular/router";
 
 export class ArventureFeature {
 
-  perso:HTMLImageElement = document.getElementById("element") as HTMLImageElement; 
+  perso: HTMLImageElement = document.getElementById("element") as HTMLImageElement;
   pad: number = 75; //padding function isCollide
-  comte:HTMLElement = document.getElementById('comte') as HTMLElement;
-  circle:HTMLElement = document.querySelector("a.btn-circle") as HTMLElement;
-  para:HTMLElement = document.querySelector(".paragraphe") as HTMLElement;
+  comte: HTMLElement = document.getElementById('comte') as HTMLElement;
+  circle: HTMLElement = document.querySelector("a.btn-circle") as HTMLElement;
+  para: HTMLElement = document.querySelector(".paragraphe") as HTMLElement;
   findepluie: boolean = false;
   waterDrop = document.createElement('i') as HTMLElement;
-  
 
-  constructor(private route?:Router) {
-  
+
+  constructor(private route?: Router) {
+
   }
-  
-  start(){
+
+  /**
+   * Permet d'être appelé dans le component arventure et d'exécuter ces différentes methodes.
+   */
+  start() {
     this.waterDrop = document.createElement('i') as HTMLElement;
     this.perso = document.getElementById("element") as HTMLImageElement;
     this.circle = document.querySelector("a.btn-circle") as HTMLElement;
     this.para = document.querySelector(".paragraphe") as HTMLElement;
-    this.comte= document.getElementById('comte') as HTMLElement;
-    this.findepluie = false;
-    this.rainFall();
+    this.comte = document.getElementById('comte') as HTMLElement;
     this.resetPers();
     this.EventTouch();
-    this.isCollide2();
-    this.isCollide(this.sizeElemt('element'),this.sizeElements('img'));
+    this.isCollide(this.sizeElemt('element'), this.sizeElements('img'));
     this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"));
   }
 
-  startSuiteHistoire(){
+  /**
+   *Pemet d'être appeler dans le component generer histoire et de Recupèrer l'id de la carte 
+   correspondant à la collision entre le personnage et l'image(carte)
+   * @returns {string}
+   */
+  idCarteCollide(): string {
+    return this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"));
+  }
 
-    this.suiteHistoire(this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element")));
+  /**
+   * Pemet d'être appeler dans le component generer histoire 
+   * et de Générer l'histoire correspondant au choix de l'utilisateur 
+   * @param id 
+   * @returns {string | void}
+   */
+  startSuiteHistoire(id: string): string | void {
+    this.waterDrop = document.createElement('i') as HTMLElement;
+    this.perso = document.getElementById("element") as HTMLImageElement;
+    this.circle = document.querySelector("a.btn-circle") as HTMLElement;
+    this.comte = document.getElementById('comte') as HTMLElement;
+    this.para = document.querySelector(".paragraphe") as HTMLElement;
+    this.EventTouch();
+    return this.suiteHistoire(id);
   }
 
   /**
  * Fonction qui permet de générer la pluie 
  */
   rainFall(): void {
-  
+
     let findepluie: boolean = false;
 
     if (findepluie) {
@@ -92,7 +112,7 @@ export class ArventureFeature {
    * @param suiteHistoire Réinitialiser l'emplacement du personnage
    */
   resetPers(suiteHistoire = ""): void {
-     console.log(`${suiteHistoire.length} == ${this.comte?.innerHTML.length + 1}`)
+    console.log(`${suiteHistoire.length} == ${this.comte?.innerHTML.length + 1}`)
 
     if (suiteHistoire.length == this.comte?.innerHTML.length + 1) {
       console.log("fin de l'histoire");
@@ -113,7 +133,7 @@ export class ArventureFeature {
    */
   genererHistoire(lieu: string) {
     console.log("genererHistoire", lieu);
-    this.comte.innerHTML = "";
+    this.comte.innerHTML;
     this.circle.style.cssText = "transform: translateX(-100vw) rotate(360deg); -webkit-transition: 1s 500ms;";
 
     let suiteHistoire: string = "";
@@ -135,7 +155,7 @@ export class ArventureFeature {
     switch (lieu) {
       case 'montagne':
       case 'forêt':
-         suiteHistoire += `.<br><br>Le petit garçon courageux décida de se diriger vers la ${lieu}`;
+        suiteHistoire += `.<br><br>Le petit garçon courageux décida de se diriger vers la ${lieu}`;
         break;
       case 'tempête':
         suiteHistoire += `malgré la tempête.`;
@@ -163,67 +183,67 @@ export class ArventureFeature {
       default:
         this.resetPers();
     }
-    this.type(suiteHistoire);
+    // thas recupération du this
+    let str: string = suiteHistoire, i: number = 0, isTag: boolean = false, text: string, thas = this;
+    (function type(): void {
+      text = str.slice(0, ++i);
+      if (text === str) return;
+
+      thas.comte.innerHTML = text;
+
+      /* ANIMATIONS */
+      // déclenchement de la pluie
+      var n = text.split(" "); // words array
+      if (n[n.length - 1] == "tempête") {
+        thas.findepluie = false;
+        setInterval(thas.rainFall, 0.5); // déclenchement de la pluie sur le mot tempête
+      }
+      thas.comte.scrollIntoView({ block: "end" }); // descente prompteur
+
+      /* FIN ANIMATIONS */
+      var char = text.slice(-1);
+      if (char === '<') isTag = true;
+      if (char === '>') isTag = false;
+
+      if (isTag) return type();
+      setTimeout(type, 72);
+
+      thas.resetPers(suiteHistoire);
+    }());
+
   }
 
-  suiteHistoire(idCarte:string){
+  suiteHistoire(idCarte: string) {
     console.log("function suite histoire idCarte", idCarte);
-    switch(idCarte){
-        case 'carte1':
-            this.genererHistoire("tempête");
-            break;
+    switch (idCarte) {
+      case 'carte1':
+        console.log("suite Histoire carte1");
 
-        case 'carte2':
-            this.genererHistoire("montagne");
-            break;
+        this.genererHistoire("tempête");
 
-        case 'carte3':
-            this.genererHistoire("forêt");
-            break;
+        break;
 
-        case 'carte4':
-            this.genererHistoire("refuge");
-            break;
-        default:
-          //this.recharger();
+      case 'carte2':
+        console.log("suite Histoire carte2");
+        this.genererHistoire("montagne");
+        break;
+
+      case 'carte3':
+        console.log("suite Histoire carte3");
+        this.genererHistoire("forêt");
+        break;
+
+      case 'carte4':
+        console.log("suite Histoire carte4");
+        this.genererHistoire("refuge");
+        break;
+      default:
+        this.recharger();
     }
+
+
+
   }
-
-  /**
-   * Effet machine à écrire 
-   * @param str 
-   * @returns 
-   */
-  type(str:string): void {
-    let i: number = 0;
-    let isTag: boolean = false;
-    let text: string;
-
-    text = str.slice(0, ++i);
-    if (text === str) return;
-
-    this.comte.innerHTML = text;
-
-    /* ANIMATIONS */
-    // déclenchement de la pluie
-    let n: string[] = text.split(" "); // words array
-    if (n[n.length - 1] == "tempête") {
-      this.findepluie = false;
-      
-      setInterval(this.rainFall, 0.5); // déclenchement de la pluie sur le mot tempête
-    }
-    this.comte.scrollIntoView({ block: "end" }); // descente prompteur
-    /* FIN ANIMATIONS */
-
-    let char: string = text.slice(-1);
-    if (char === '<') isTag = true;
-    if (char === '>') isTag = false;
-
-    if (isTag) return this.type(str);
-    setTimeout(this.type, 72);
-    this.resetPers(str);
-  
-  };
 
   /**
    * Permet de renvoyer un tableau contenant toutes les tailles des images et les positions 
@@ -287,48 +307,48 @@ export class ArventureFeature {
    * Gestion d'événement des touches afin de déplacer le personnage 
    */
   EventTouch(): void {
-      localStorage.setItem("coucou", "0");
-      let features = this;//recupération du this
-      window.addEventListener("keydown", function (event) {
-        
-        switch (event.key) {
-          case "ArrowDown":
-          
-            features.perso.style.bottom = (parseInt(`${features.perso.style.bottom || 150}`) - 10) + 'px';
-            features.isCollide2();
-            break;
+    localStorage.setItem("coucou", "0");
+    let features = this;//recupération du this
+    window.addEventListener("keydown", function (event) {
 
-          case "ArrowUp":
-            features.perso.style.bottom = (parseInt(`${features.perso.style.bottom || 150}`) + 10) + 'px';
-            features.isCollide2();
-            break;
+      switch (event.key) {
+        case "ArrowDown":
 
-          case "ArrowLeft":
-            features.perso.style.left = (parseInt(`${features.perso.style.left || 0}`) - 10) + 'px';
-            features.isCollide2();
-            break;
+          features.perso.style.bottom = (parseInt(`${features.perso.style.bottom || 150}`) - 10) + 'px';
+          features.isCollide2();
+          break;
 
-          case "ArrowRight":
-            features.perso.style.left = (parseInt(`${features.perso.style.left || 0}`) + 10) + 'px';
-            features.isCollide2();
-            break;
+        case "ArrowUp":
+          features.perso.style.bottom = (parseInt(`${features.perso.style.bottom || 150}`) + 10) + 'px';
+          features.isCollide2();
+          break;
 
-          case "Enter":
-            // Faire quelque chose pour les touches "enter" ou "return" pressées.
-            break;
-          case "Escape":
-            // Faire quelque chose pour la touche "esc" pressée.
-            break;
-          default:
-            return; // Quitter lorsque cela ne gère pas l'événement touche.
-        }
+        case "ArrowLeft":
+          features.perso.style.left = (parseInt(`${features.perso.style.left || 0}`) - 10) + 'px';
+          features.isCollide2();
+          break;
 
-        // Annuler l'action par défaut pour éviter qu'elle ne soit traitée deux fois.
-        event.preventDefault();
-      }, true);
-    }
-  
-    
+        case "ArrowRight":
+          features.perso.style.left = (parseInt(`${features.perso.style.left || 0}`) + 10) + 'px';
+          features.isCollide2();
+          break;
+
+        case "Enter":
+          // Faire quelque chose pour les touches "enter" ou "return" pressées.
+          break;
+        case "Escape":
+          // Faire quelque chose pour la touche "esc" pressée.
+          break;
+        default:
+          return; // Quitter lorsque cela ne gère pas l'événement touche.
+      }
+
+      // Annuler l'action par défaut pour éviter qu'elle ne soit traitée deux fois.
+      event.preventDefault();
+    }, true);
+  }
+
+
 
 
   isCollide(pers: DOMRect, img: DOMRect[]) {
@@ -339,7 +359,6 @@ export class ArventureFeature {
       console.log(`img pos right/left:  ${img[i].x} , largeur img: ${img[i].width}`);
       console.log(`pers pos top/bottom:  ${pers.y} , hauteur pers: ${pers.height}`);
       console.log(`pers pos right/left:  ${pers.x} , largeur pers: ${pers.width}`);
-      console.log("suiteHisoire", this.suiteHistoire(this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"))));
       var pad = 70;
       if (pers.y + pers.height + img[i].height - pad < img[i].height) {
 
@@ -352,26 +371,27 @@ export class ArventureFeature {
       } else if (pers.x + pers.height - pad < img[i].x || pers.x + pers.width > img[i].x) {
         console.log("carteId", this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element")));
         console.log("coucou");
- 
+        console.log(document.querySelector(`img#${this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"))}`));
+        
         if (localStorage.getItem("coucou") == "0") {
+          localStorage.setItem("toto", "1");
+          localStorage.setItem("coucou", "1");
 
-          localStorage.setItem("coucou", "1"); 
-       
           let idHistoire = this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"));
           console.log(idHistoire);
-          this.suiteHistoire(idHistoire);
-          
          
+
           // NEW BACKGROUND:
           console.log(typeof document.querySelector(`img#${this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"))}`));
 
           if (document.querySelector(`img#${idHistoire}`)) {
             let newBackground = document.querySelector(`img#${idHistoire}`)!.getAttribute("src");
+            
             let headerElement = document.querySelector(".masthead") as HTMLHeadingElement;
             headerElement.style.cssText = `background:url(${newBackground}) no-repeat center/cover; background-position:bottom;`;
           }
         }
-        
+
       }
     }
   }

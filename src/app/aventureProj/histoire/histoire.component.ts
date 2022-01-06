@@ -9,14 +9,14 @@ import { ArventureFeature } from 'src/app/class/ArventureFeature';
 })
 export class HistoireComponent implements OnInit {
 
-  arventure = new ArventureFeature();
   constructor(private route:Router) { }
 
   ngOnInit(): void {
-    this.arventure.start();
+  
   }
 
   redirectPerso(){
+    localStorage.setItem("toto", "0");
       this.route.navigateByUrl("/arventure");
   }
 }
