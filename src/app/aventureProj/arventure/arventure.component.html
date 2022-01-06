@@ -1,14 +1,3 @@
-<div id="presentationCartes" class="image">
-    <!-- new card -->
-    <div class="carte" *ngFor="let card of cardList">
-        <h4>
-            {{card.title}}
-        </h4>
-        <div id="carte{{card.id}}">
-            <img loading="lazy" class="img" src="../../../assets/images/{{card.img}}" alt={{card.alt}} id="carte{{card.id}}"
-                (click)="isCollideOk()">
-        </div>
-    </div>
-</div><!-- end cards -->
+<app-cards></app-cards>
 <img loading="lazy" id="element" src="../../../assets/images/unknown.webp" loading="lazy"
     title="Déplace moi avec le claiver" alt="personnage du jeux"><!-- personnage -->

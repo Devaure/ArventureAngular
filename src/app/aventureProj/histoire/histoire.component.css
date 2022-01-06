@@ -23,16 +23,3 @@
     color: #fff;
     line-height: 25px;
   }
-
-   /* The cards */
-   #presentationCartes {
-    height: 100vh;
-    display: flex;
-    justify-content: space-around;
-    text-align: center;
-    background: url("../../../assets/images/home.webp");
-    background-size:  cover !important;
-    background-position: bottom left;
-    background-size: auto;
-    background-repeat: no-repeat;
-  }
