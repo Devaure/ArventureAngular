@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { ArventureComponent } from './aventureProj/arventure/arventure.component';
 import { HistoireComponent } from './aventureProj/histoire/histoire.component';
 import { GenererHistoireComponent } from './aventureProj/generer-histoire/generer-histoire.component';
-import { CardsComponent } from './cards/cards.component';
+import { CardsComponent } from './aventureProj/cards/cards.component';
 
 
 @NgModule({

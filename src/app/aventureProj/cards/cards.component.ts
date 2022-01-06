@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ArventureFeature } from '../class/ArventureFeature';
+import { ArventureFeature } from '../../class/ArventureFeature';
 
 @Component({
   selector: 'app-cards',
