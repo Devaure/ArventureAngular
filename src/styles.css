@@ -41,7 +41,7 @@ html, body,* {
                                        
                                        
   */
-  .masthead{
+  header.masthead{
     background: url("../../../assets/images/bg_ok.webp") no-repeat;
     background-size: cover;
   }
