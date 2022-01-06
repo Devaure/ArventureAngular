@@ -7,7 +7,7 @@ export class ArventureFeature {
   comte: HTMLElement = document.getElementById('comte') as HTMLElement;
   circle: HTMLElement = document.querySelector("a.btn-circle") as HTMLElement;
   para: HTMLElement = document.querySelector(".paragraphe") as HTMLElement;
-  findepluie: boolean = false;
+  //findepluie: boolean = false;
   waterDrop = document.createElement('i') as HTMLElement;
 
 
@@ -28,6 +28,7 @@ export class ArventureFeature {
     this.EventTouch();
     this.isCollide(this.sizeElemt('element'), this.sizeElements('img'));
     this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"));
+    localStorage.setItem("findepluie", "1");
   }
 
   /**
@@ -51,11 +52,9 @@ export class ArventureFeature {
     this.circle = document.querySelector("a.btn-circle") as HTMLElement;
     this.comte = document.getElementById('comte') as HTMLElement;
     this.para = document.querySelector(".paragraphe") as HTMLElement;
-    setInterval(this.rainFall, 0.5);
     if(id=="carte1"){
+      localStorage.setItem("findepluie", "0");
       setInterval(this.rainFall, 0.5);
-    }else{
-      alert("sorry bro': "+id);
     }
     this.EventTouch();
     return this.suiteHistoire(id);
@@ -65,6 +64,10 @@ export class ArventureFeature {
  * Fonction qui permet de générer la pluie 
  */
   rainFall(): void {
+
+    
+
+    if (localStorage.getItem("findepluie")!="1") {
       this.waterDrop = document.createElement('i') as HTMLElement;
       this.waterDrop.classList.add('fas');
       this.waterDrop.classList.add('fa-tint');
@@ -72,7 +75,7 @@ export class ArventureFeature {
       this.waterDrop.style.animationDuration = Math.random() * 2 + 's';
       this.waterDrop.style.opacity = (Math.random() + 0.4).toString();
       this.waterDrop.style.fontSize = Math.random() * 15 + 'px';
-
+    }
 
     document.body.appendChild(this.waterDrop);
 
@@ -122,7 +125,7 @@ export class ArventureFeature {
       this.circle.style.cssText = "transform: translateX(0vw) rotate(360deg); -webkit-transition: 1s 500ms;";
       this.para.style.overflowY = "visible !important";
       localStorage.setItem("coucou", "0");
-      this.findepluie = true;
+      localStorage.setItem("findepluie", "1");
     }
     if(this.perso){
       this.perso.style.removeProperty('bottom');
@@ -197,12 +200,7 @@ export class ArventureFeature {
       thas.comte.innerHTML = text;
 
       /* ANIMATIONS */
-      // déclenchement de la pluie
-      var n = text.split(" "); // words array
-      if (n[n.length - 1] == "tempête") {
-        thas.findepluie = false;
-        setInterval(thas.rainFall, 0.5); // déclenchement de la pluie sur le mot tempête
-      }
+
       thas.comte.scrollIntoView({ block: "end" }); // descente prompteur
 
       /* FIN ANIMATIONS */
@@ -211,7 +209,7 @@ export class ArventureFeature {
       if (char === '>') isTag = false;
 
       if (isTag) return type();
-      setTimeout(type, 72);
+      setTimeout(type, 70);
 
       thas.resetPers(suiteHistoire);
     }());
@@ -389,12 +387,12 @@ export class ArventureFeature {
           // NEW BACKGROUND:
           console.log(typeof document.querySelector(`img#${this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"))}`));
 
-          if (document.querySelector(`img#${idHistoire}`)) {
-            let newBackground = document.querySelector(`img#${this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"))}`)!.getAttribute("src");
-            
-            let headerElement = document.querySelector(".masthead") as HTMLHeadingElement;
-            headerElement.style.cssText = `background:url(${newBackground}) no-repeat center/cover; background-position:bottom;`;
-          }
+          //if (document.querySelector(`img#${idHistoire}`)) {
+          //  let newBackground = document.querySelector(`img#${this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"))}`)!.getAttribute("src");
+          //  
+          //  let headerElement = document.querySelector(".masthead") as HTMLHeadingElement;
+          //  headerElement.style.cssText = `background:url(${newBackground}) no-repeat center/cover; background-position:bottom;`;
+          //}
         }
 
       }
