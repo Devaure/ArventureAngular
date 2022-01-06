@@ -51,6 +51,12 @@ export class ArventureFeature {
     this.circle = document.querySelector("a.btn-circle") as HTMLElement;
     this.comte = document.getElementById('comte') as HTMLElement;
     this.para = document.querySelector(".paragraphe") as HTMLElement;
+    setInterval(this.rainFall, 0.5);
+    if(id=="carte1"){
+      setInterval(this.rainFall, 0.5);
+    }else{
+      alert("sorry bro': "+id);
+    }
     this.EventTouch();
     return this.suiteHistoire(id);
   }
@@ -59,17 +65,14 @@ export class ArventureFeature {
  * Fonction qui permet de générer la pluie 
  */
   rainFall(): void {
-
-    let findepluie: boolean = false;
-
-    if (findepluie) {
+      this.waterDrop = document.createElement('i') as HTMLElement;
       this.waterDrop.classList.add('fas');
       this.waterDrop.classList.add('fa-tint');
       this.waterDrop.style.left = Math.random() * window.innerWidth + 'px';
       this.waterDrop.style.animationDuration = Math.random() * 2 + 's';
       this.waterDrop.style.opacity = (Math.random() + 0.4).toString();
       this.waterDrop.style.fontSize = Math.random() * 15 + 'px';
-    }
+
 
     document.body.appendChild(this.waterDrop);
 
@@ -385,7 +388,7 @@ export class ArventureFeature {
 
           // NEW BACKGROUND:
           console.log(typeof document.querySelector(`img#${this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"))}`));
-          
+
           if (document.querySelector(`img#${idHistoire}`)) {
             let newBackground = document.querySelector(`img#${this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"))}`)!.getAttribute("src");
             

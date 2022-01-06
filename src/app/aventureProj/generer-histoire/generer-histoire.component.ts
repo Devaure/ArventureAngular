@@ -27,7 +27,7 @@ export class GenererHistoireComponent implements OnInit {
     const id= this.route.snapshot.params['id'];
     let bg:any;
     if (id==="carte1"){
-      bg='masthead tempete'
+      bg='masthead tempete';
     }
     else if (id==="carte2"){
       bg='masthead montagne'
