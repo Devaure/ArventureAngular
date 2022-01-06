@@ -8,7 +8,7 @@ export class ArventureFeature {
   circle: HTMLElement = document.querySelector("a.btn-circle") as HTMLElement;
   para: HTMLElement = document.querySelector(".paragraphe") as HTMLElement;
   findepluie: boolean = false;
-  
+  waterDrop = document.createElement('i') as HTMLElement;
 
 
   constructor(private route?: Router) {
@@ -19,6 +19,7 @@ export class ArventureFeature {
    * Permet d'être appelé dans le component arventure et d'exécuter ces différentes methodes.
    */
   start() {
+    this.waterDrop = document.createElement('i') as HTMLElement;
     this.perso = document.getElementById("element") as HTMLImageElement;
     this.circle = document.querySelector("a.btn-circle") as HTMLElement;
     this.para = document.querySelector(".paragraphe") as HTMLElement;
@@ -45,15 +46,41 @@ export class ArventureFeature {
    * @returns {string | void}
    */
   startSuiteHistoire(id: string): string | void {
+    this.waterDrop = document.createElement('i') as HTMLElement;
     this.perso = document.getElementById("element") as HTMLImageElement;
     this.circle = document.querySelector("a.btn-circle") as HTMLElement;
     this.comte = document.getElementById('comte') as HTMLElement;
     this.para = document.querySelector(".paragraphe") as HTMLElement;
+    setInterval(this.rainFall, 0.5);
+    if(id=="carte1"){
+      setInterval(this.rainFall, 0.5);
+    }else{
+      alert("sorry bro': "+id);
+    }
     this.EventTouch();
     return this.suiteHistoire(id);
   }
 
+  /**
+ * Fonction qui permet de générer la pluie 
+ */
+  rainFall(): void {
+      this.waterDrop = document.createElement('i') as HTMLElement;
+      this.waterDrop.classList.add('fas');
+      this.waterDrop.classList.add('fa-tint');
+      this.waterDrop.style.left = Math.random() * window.innerWidth + 'px';
+      this.waterDrop.style.animationDuration = Math.random() * 2 + 's';
+      this.waterDrop.style.opacity = (Math.random() + 0.4).toString();
+      this.waterDrop.style.fontSize = Math.random() * 15 + 'px';
 
+
+    document.body.appendChild(this.waterDrop);
+
+    setTimeout(() => {
+      this.waterDrop.remove();
+    }, 1000)
+
+  }
 
   /**
    * Function qui permet le rechargement de la page
@@ -170,6 +197,12 @@ export class ArventureFeature {
       thas.comte.innerHTML = text;
 
       /* ANIMATIONS */
+      // déclenchement de la pluie
+      var n = text.split(" "); // words array
+      if (n[n.length - 1] == "tempête") {
+        thas.findepluie = false;
+        setInterval(thas.rainFall, 0.5); // déclenchement de la pluie sur le mot tempête
+      }
       thas.comte.scrollIntoView({ block: "end" }); // descente prompteur
 
       /* FIN ANIMATIONS */
@@ -355,7 +388,7 @@ export class ArventureFeature {
 
           // NEW BACKGROUND:
           console.log(typeof document.querySelector(`img#${this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"))}`));
-          
+
           if (document.querySelector(`img#${idHistoire}`)) {
             let newBackground = document.querySelector(`img#${this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"))}`)!.getAttribute("src");
             
