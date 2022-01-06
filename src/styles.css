@@ -42,26 +42,26 @@ html, body,* {
                                        
   */
   .masthead{
-    background: url("../../../assets/images/bg_ok.webp") no-repeat;
+    background: url("../../../assets/images/bg_ok.webp") no-repeat center;
     background-size: cover;
   }
 
   .tempete{
-    background: url("../../../assets/images/tempete_ok.webp") no-repeat !important;
+    background: url("../../../assets/images/tempete_ok.webp") no-repeat center !important;
     background-size: cover;
   }
 
   .montagne{
-    background: url("../../../assets/images/moutains_ok.webp") no-repeat !important;
+    background: url("../../../assets/images/moutains_ok.webp") no-repeat center !important;
     background-size: cover;
   }
   .foret{
-    background: url("../../../assets/images/forestGood.webp") no-repeat !important;
+    background: url("../../../assets/images/forestGood.webp") no-repeat center !important;
     background-size: cover;
   }
 
   .refuge{
-    background: url("../../../assets/images/refuge_ok.webp") no-repeat !important;
+    background: url("../../../assets/images/refuge_ok.webp") no-repeat center !important;
     background-size: cover;
   }
 
