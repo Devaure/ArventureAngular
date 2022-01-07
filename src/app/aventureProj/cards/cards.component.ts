@@ -23,7 +23,6 @@ export class CardsComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  
   isCollideOk():any{
     if(localStorage.getItem("toto") == "1"){
 
