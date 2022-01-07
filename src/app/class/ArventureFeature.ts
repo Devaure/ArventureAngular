@@ -3,13 +3,13 @@ import { Router } from "@angular/router";
 export class ArventureFeature {
 
   perso: HTMLImageElement = document.getElementById("element") as HTMLImageElement;
-  pad: number = 75; //padding function isCollide
+  pad: number = 70; //padding function isCollide
   comte: HTMLElement = document.getElementById('comte') as HTMLElement;
   circle: HTMLElement = document.querySelector("a.btn-circle") as HTMLElement;
   para: HTMLElement = document.querySelector(".paragraphe") as HTMLElement;
   //findepluie: boolean = false;
   waterDrop = document.createElement('i') as HTMLElement;
-
+ 
 
   constructor(private route?: Router) {
 
@@ -52,9 +52,9 @@ export class ArventureFeature {
     this.circle = document.querySelector("a.btn-circle") as HTMLElement;
     this.comte = document.getElementById('comte') as HTMLElement;
     this.para = document.querySelector(".paragraphe") as HTMLElement;
-    if(id=="carte1"){
+    if (id == "carte1") {
       localStorage.setItem("findepluie", "0");
-      setInterval(this.rainFall, 0.5);
+      setInterval(this.rainFall, 0.1);
     }
     this.EventTouch();
     return this.suiteHistoire(id);
@@ -64,21 +64,16 @@ export class ArventureFeature {
  * Fonction qui permet de générer la pluie 
  */
   rainFall(): void {
-
-    
-
-    if (localStorage.getItem("findepluie")!="1") {
+    if (localStorage.getItem("findepluie") != "1") {
       this.waterDrop = document.createElement('i') as HTMLElement;
       this.waterDrop.classList.add('fas');
       this.waterDrop.classList.add('fa-tint');
       this.waterDrop.style.left = Math.random() * window.innerWidth + 'px';
-      this.waterDrop.style.animationDuration = Math.random() * 2 + 's';
-      this.waterDrop.style.opacity = (Math.random() + 0.4).toString();
+      this.waterDrop.style.animationDuration = Math.random() * 1 + 's';
+      this.waterDrop.style.opacity = (Math.random() + 0.5).toString();
       this.waterDrop.style.fontSize = Math.random() * 15 + 'px';
     }
-
     document.body.appendChild(this.waterDrop);
-
     setTimeout(() => {
       this.waterDrop.remove();
     }, 1000)
@@ -127,7 +122,7 @@ export class ArventureFeature {
       localStorage.setItem("coucou", "0");
       localStorage.setItem("findepluie", "1");
     }
-    if(this.perso){
+    if (this.perso) {
       this.perso.style.removeProperty('bottom');
       this.perso.style.bottom = "150px;";
       this.perso.style.removeProperty('right');
@@ -295,10 +290,8 @@ export class ArventureFeature {
    * @param posPersonnage 
    * @returns 
    */
-  takeInformation(imgInformation: number[], posPersonnage: DOMRect): any {
-
+  takeInformation(imgInformation: number[], posPersonnage: DOMRect):any{
     for (let i = 0; i < imgInformation.length; i++) {
-
       let posImg = document.getElementById(`${imgInformation[i]}`)!.getBoundingClientRect() as DOMRect;
       if (posPersonnage.x > posImg.x && posPersonnage.x + posPersonnage.width < posImg.x + posImg.width) {
         return imgInformation[i];
@@ -352,9 +345,12 @@ export class ArventureFeature {
   }
 
 
-
-
-  isCollide(pers: DOMRect, img: DOMRect[]) {
+  /**
+   * Détection de la colision entre le personnage et les cartes
+   * @param pers 
+   * @param img 
+   */
+  isCollide(pers: DOMRect, img: DOMRect[]):void {
 
     for (let i = 0; i < img.length; i++) {
 
@@ -362,37 +358,20 @@ export class ArventureFeature {
       console.log(`img pos right/left:  ${img[i].x} , largeur img: ${img[i].width}`);
       console.log(`pers pos top/bottom:  ${pers.y} , hauteur pers: ${pers.height}`);
       console.log(`pers pos right/left:  ${pers.x} , largeur pers: ${pers.width}`);
-      var pad = 70;
-      if (pers.y + pers.height + img[i].height - pad < img[i].height) {
+     
+      if (pers.y + pers.height + img[i].height - this.pad < img[i].height) {
 
         this.resetPers();
 
-      } else if (pers.y - pad > img[i].height) {
+      } else if (pers.y - this.pad > img[i].height) {
 
         console.log("en dehors en bas");
 
-      } else if (pers.x + pers.height - pad < img[i].x || pers.x + pers.width > img[i].x) {
-        console.log("carteId", this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element")));
-        console.log("coucou");
-        console.log(document.querySelector(`img#${this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"))}`));
-        
+      } else if (pers.x + pers.height - this.pad < img[i].x || pers.x + pers.width > img[i].x) {
+
         if (localStorage.getItem("coucou") == "0") {
           localStorage.setItem("toto", "1");
           localStorage.setItem("coucou", "1");
-
-          let idHistoire = this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"));
-          console.log(idHistoire);
-         
-
-          // NEW BACKGROUND:
-          console.log(typeof document.querySelector(`img#${this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"))}`));
-
-          //if (document.querySelector(`img#${idHistoire}`)) {
-          //  let newBackground = document.querySelector(`img#${this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"))}`)!.getAttribute("src");
-          //  
-          //  let headerElement = document.querySelector(".masthead") as HTMLHeadingElement;
-          //  headerElement.style.cssText = `background:url(${newBackground}) no-repeat center/cover; background-position:bottom;`;
-          //}
         }
 
       }
