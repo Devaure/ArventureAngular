@@ -357,7 +357,7 @@ export class ArventureFeature {
   isCollide(pers: DOMRect, img: DOMRect[]) {
 
     for (let i = 0; i < img.length; i++) {
-
+      //récupération des informations img et pers 
       console.log(`img pos top/bottom:  ${img[i].y} , hauteur img: ${img[i].height}`);
       console.log(`img pos right/left:  ${img[i].x} , largeur img: ${img[i].width}`);
       console.log(`pers pos top/bottom:  ${pers.y} , hauteur pers: ${pers.height}`);
@@ -374,25 +374,9 @@ export class ArventureFeature {
       } else if (pers.x + pers.height - pad < img[i].x || pers.x + pers.width > img[i].x) {
         console.log("carteId", this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element")));
         console.log("coucou");
-        console.log(document.querySelector(`img#${this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"))}`));
-        
         if (localStorage.getItem("coucou") == "0") {
           localStorage.setItem("toto", "1");
           localStorage.setItem("coucou", "1");
-
-          let idHistoire = this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"));
-          console.log(idHistoire);
-         
-
-          // NEW BACKGROUND:
-          console.log(typeof document.querySelector(`img#${this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"))}`));
-
-          //if (document.querySelector(`img#${idHistoire}`)) {
-          //  let newBackground = document.querySelector(`img#${this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"))}`)!.getAttribute("src");
-          //  
-          //  let headerElement = document.querySelector(".masthead") as HTMLHeadingElement;
-          //  headerElement.style.cssText = `background:url(${newBackground}) no-repeat center/cover; background-position:bottom;`;
-          //}
         }
 
       }

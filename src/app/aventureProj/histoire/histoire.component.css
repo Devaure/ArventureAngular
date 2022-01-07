@@ -1,9 +1,41 @@
- /* titres */
- .perso-shadow {
-    text-shadow: 1px 3px 2px rgba(255,255,255,0.2);
-    color: #fff;
-  }
+.masthead{
+  background: url("../../../assets/images/bg_ok.webp") no-repeat;
+  background-size: cover !important;
+   background-position:bottom;
+}
 
+.tempete{
+  background: url("../../../assets/images/tempete_ok.webp") no-repeat !important;
+  background-size: cover !important;
+   background-position:bottom;
+}
+
+.montagne{
+  background: url("../../../assets/images/moutains_ok.webp") no-repeat !important;
+  background-size: cover !important;
+   background-position:bottom;
+}
+.foret{
+  background: url("../../../assets/images/forestGood.webp") no-repeat !important;
+  background-size: cover !important;
+   background-position:bottom;
+}
+
+.refuge{
+  background: url("../../../assets/images/refuge_ok.webp") no-repeat !important;
+  background-size: cover !important;
+   background-position:bottom;
+}
+
+.bg-image {
+  overflow-x: hidden;
+  overflow-y: overlay;
+}
+/* titres */
+.perso-shadow {
+  text-shadow: 1px 3px 2px rgba(255,255,255,0.2);
+  color: #fff;
+}
   /* prompteur */
   .paragraphe {
     scroll-behavior: smooth;
@@ -22,4 +54,21 @@
     scroll-behavior: smooth;
     color: #fff;
     line-height: 25px;
+  }
+
+  hr {
+    border: 2px #fff solid;
+  }
+
+  /* animation pluie */
+  .fa-tint {
+    color: rgb(160,160,160);
+    position: absolute;
+    top: -20px;
+    animation: fall linear forwards;
+  }
+  @keyframes fall {
+    to {
+      transform: translateY(105vh);
+    }
   }

@@ -8,32 +8,6 @@
                                        
                                        
   */
-  header.masthead{
-    background: url("../../../assets/images/bg_ok.webp") no-repeat;
-    background-size: cover;
-  }
-  .bg-image {
-    overflow-x: hidden;
-    overflow-y: overlay;
-  }
- 
-  hr {
-    border: 2px #fff solid;
-  }
-  
-  /* animation pluie */
-  .fa-tint {
-    color: rgb(160,160,160);
-    position: absolute;
-    top: -20px;
-    animation: fall linear forwards;
-  }
-  @keyframes fall {
-    to {
-      transform: translateY(105vh);
-    }
-  }
- 
   #element {
     position: relative;
     height: 150px;
