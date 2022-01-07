@@ -155,8 +155,6 @@ export class ArventureFeature {
       case 'refuge':
         suiteHistoire += `en direction du ${lieu} situé à la pointe de la montagne.`;
         break;
-      default:
-        window.location.href = '/arventure';
     }
 
     suiteHistoire += `<br><br>Durant le périple le petit garçon rencontra un méchant ${mechant2} qui avait faim. Fort heuresement, le petit garçon a sorti quelques cookies de son sac qu'il jeta en direction de l'animal affamé afin de se sauver discrétement des griffes de cette bête féroce.<br><br>C'est après de longues heures de marche que le petit garçon trouva un indice lui indiquant qu'il était sur le bon chemin. En effet, il trouva ${objetsListe2} de Lyla au sol. Par conséquent, le petit garçon continua son chemin longuement, jusqu'à attérir à une intersection. Un à droite et un à gauche. Le petit garçon choisissa de faire confiance à son intution: il pris le chemin de ${directionChemin2}.`;
@@ -172,8 +170,6 @@ export class ArventureFeature {
       case 'refuge':
         suiteHistoire += `<br><br>Le petit téméraire décida de se mettre à l'abri pour la nuit dans le refuge il qu'il a vu. C'est au moment où il ouvra la porte qu'il retomba sur la pauvre petite fille ${etatFille2}. ${siAffame}<br><br>C'est le lendemain que les 2 petits aventuriers retrouvèrent le chemin de leur domicile....`;
         break;
-      default:
-        window.location.href = '/arventure';
     }
     // thas recupération du this
     let str: string = suiteHistoire, i: number = 0, isTag: boolean = false, text: string, thas = this;
@@ -224,8 +220,7 @@ export class ArventureFeature {
         console.log("suite Histoire carte4");
         this.genererHistoire("refuge");
         break;
-      default:
-        window.location.href = '/arventure';
+       
     }
 
 
@@ -359,9 +354,7 @@ export class ArventureFeature {
       } else if (pers.x + pers.height - this.pad < img[i].x || pers.x + pers.width > img[i].x) {
        
         if (localStorage.getItem("coucou") == "0") {
-          if (!document.querySelector(`img#${this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"))}`)) {
-            window.location.href = '/arventure';
-          }
+       
           localStorage.setItem("toto", "1");
           localStorage.setItem("coucou", "1");
         }

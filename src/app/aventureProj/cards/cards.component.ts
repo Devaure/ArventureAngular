@@ -28,8 +28,13 @@ export class CardsComponent implements OnInit {
 
       this.id = this.arventure.idCarteCollide();
       console.log("CArteId", this.id);
-      
-      this.route.navigateByUrl(`/genererHistoire/${this.id}`);
+      if(this.id){
+        this.route.navigateByUrl(`/genererHistoire/${this.id}`);
+      }else{
+        localStorage.setItem("coucou", "0");
+        this.route.navigateByUrl("/arventure");
+      }
+     
     }
     localStorage.setItem("toto", "0");
   }
