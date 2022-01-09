@@ -47,14 +47,18 @@ export class ArventureFeature {
    * @returns {string | void}
    */
   startSuiteHistoire(id: string): string | void {
-    this.waterDrop = document.createElement('i') as HTMLElement;
-    this.perso = document.getElementById("element") as HTMLImageElement;
-    this.circle = document.querySelector("a.btn-circle") as HTMLElement;
-    this.comte = document.getElementById('comte') as HTMLElement;
-    this.para = document.querySelector(".paragraphe") as HTMLElement;
-    if (id == "carte1") {
-      localStorage.setItem("findepluie", "0");
+     localStorage.setItem("findepluie", "0");
+
+    if (id == "carte1" && localStorage.getItem("findepluie") == "0") {
+      this.waterDrop = document.createElement('i') as HTMLElement;
+      this.perso = document.getElementById("element") as HTMLImageElement;
+      this.circle = document.querySelector("a.btn-circle") as HTMLElement;
+      this.comte = document.getElementById('comte') as HTMLElement;
+      this.para = document.querySelector(".paragraphe") as HTMLElement;
       setInterval(this.rainFall, 0.5);
+    }else{
+      this.waterDrop.classList.remove('fas');
+      this.waterDrop.classList.remove('fa-tint');
     }
     this.EventTouch();
     return this.suiteHistoire(id);
@@ -72,12 +76,14 @@ export class ArventureFeature {
       this.waterDrop.style.animationDuration = Math.random() * 1 + 's';
       this.waterDrop.style.opacity = (Math.random() + 0.4).toString();
       this.waterDrop.style.fontSize = Math.random() * 15 + 'px';
+    }else if (localStorage.getItem("findepluie") == "1"){
+      this.waterDrop.classList.remove('fas');
+      this.waterDrop.classList.remove('fa-tint');
     }
     document.body.appendChild(this.waterDrop);
     setTimeout(() => {
       this.waterDrop.remove();
     }, 1000)
-
   }
 
   /**
@@ -110,6 +116,8 @@ export class ArventureFeature {
       this.para.style.overflowY = "visible !important";
       localStorage.setItem("coucou", "0");
       localStorage.setItem("findepluie", "1");
+      this.waterDrop.classList.remove('fas');
+      this.waterDrop.classList.remove('fa-tint');
     }
     if (this.perso) {
       this.perso.style.removeProperty('bottom');
@@ -222,9 +230,6 @@ export class ArventureFeature {
         break;
        
     }
-
-
-
   }
 
   /**
