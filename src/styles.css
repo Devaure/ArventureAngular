@@ -31,17 +31,18 @@ html, body,* {
   ::-webkit-scrollbar-corner {
     background: rgba(0,0,0,.75);
   }
-  /*
-    _____  ______ _____   _____  ____  
-   |  __ \|  ____|  __ \ / ____|/ __ \ 
-   | |__) | |__  | |__) | (___ | |  | |
-   |  ___/|  __| |  _  / \___ \| |  | |
-   | |    | |____| | \ \ ____) | |__| |
-   |_|    |______|_|  \_\_____/ \____/ 
-                                       
-                                       
-  */
-
+  /* animation pluie */
+  .fa-tint {
+    color: rgb(160,160,160);
+    position: absolute;
+    top: -20px;
+    animation: fall linear forwards;
+  }
+  @keyframes fall {
+    to {
+      transform: translateY(105vh);
+    }
+  }
  
 
   
