@@ -9,9 +9,12 @@ import { ArventureFeature } from 'src/app/class/ArventureFeature';
 })
 export class HistoireComponent implements OnInit {
 
-  constructor(private route:Router) { }
+  constructor(private route:Router) { 
+
+  }
 
   ngOnInit(): void {
+
   
   }
 
@@ -19,4 +22,5 @@ export class HistoireComponent implements OnInit {
     localStorage.setItem("toto", "0");
       this.route.navigateByUrl("/arventure");
   }
+ 
 }

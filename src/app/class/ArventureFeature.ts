@@ -14,7 +14,6 @@ export class ArventureFeature {
   constructor(private route?: Router) {
 
   }
-
   /**
    * Permet d'être appelé dans le component arventure et d'exécuter ces différentes methodes.
    */
@@ -89,11 +88,9 @@ export class ArventureFeature {
    * Function qui permet le rechargement de la page
    */
   recharger(): void {
-    let uuidv4 = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-      let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
-    });
-    window.location.href = "./index.html?uuidv4=" + uuidv4 + "#presentationCartes";
+    if(!document.querySelector(`img#${this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"))}`)){
+      window.location.href='/arventure';
+}
   }
 
   /**
@@ -241,7 +238,7 @@ export class ArventureFeature {
         this.genererHistoire("refuge");
         break;
       default:
-        this.recharger();
+        //this.recharger();
     }
 
 
