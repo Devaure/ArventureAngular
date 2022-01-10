@@ -13,7 +13,7 @@ export class CardsComponent implements OnInit {
     {id: 1, img: 'tempete_ok.webp', title: 'Tempête', alt: 'tempete'},
     {id: 2, img: 'moutains_ok.webp', title: 'Montagne', alt: 'montagne'},
     {id: 3, img: 'forestGood.webp', title: 'Forêt', alt: 'foret'},
-    {id: 3, img: 'refuge_ok.webp', title: 'Refuge', alt: 'refuge'}
+    {id: 4, img: 'refuge_ok.webp', title: 'Refuge', alt: 'refuge'}
  ];
  arventure:ArventureFeature;
  id:string;
