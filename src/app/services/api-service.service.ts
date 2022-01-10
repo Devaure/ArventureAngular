@@ -29,4 +29,12 @@ export class ApiServiceService {
   getEtatPetiteFille(){
     return this.http.get(`https://localhost:7178/api/EtatPersonnages`);
   }
+
+  getPlaceCarte(lieu:string){
+    return this.http.get(`https://localhost:7178/api/Lieux/GetLieuByName?endroit=${lieu}`);
+  }
+  
+  getHistoireSiAffame(){
+    return this.http.get(`https://localhost:7178/api/TextCookies`);
+  }
 }
