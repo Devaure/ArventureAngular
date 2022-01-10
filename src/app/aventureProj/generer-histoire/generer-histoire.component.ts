@@ -55,7 +55,7 @@ export class GenererHistoireComponent implements OnInit {
       sn = "../../../assets/audio/foret.mp3";
       }
     else{
-      sn = "";
+      sn = "../../../assets/audio/refuge.mp3";
     }
   return sn;
 }
