@@ -175,13 +175,13 @@ export class ArventureFeature {
    */
   getApiservCheminDirection() {
     let cheminDirection: any;
-    let cheminDirection2: any;
+    let cheminDirection2: string;
     this.service.getDirectionChemin().subscribe((data: any) => {
       cheminDirection = data;
-      cheminDirection2 = cheminDirection[this.getRandomInt(cheminDirection.length -1)].direction;
+      cheminDirection2 = cheminDirection[this.getRandomInt(cheminDirection.length - 1)].direction;
       this.dataToPass.directionChemin = cheminDirection2;
       console.log(this.dataToPass.directionChemin);
-      this. getPlaceByName(this.dataToPass.lieu);
+      this.getPlaceByName(this.dataToPass.lieu);
     });
   }
 
@@ -189,25 +189,25 @@ export class ArventureFeature {
    * Permet de passer le lieu où se passe l'histoire 
    * @param lieu 
    */
-  getPlaceByName(lieu:string){
+  getPlaceByName(lieu: string) {
     let lieuCarte: string;
-    this.service.getPlaceCarte(lieu).subscribe((data:any)=>{
-        lieuCarte = data;
-        console.log("lieu dans fonction getPlace", data.lieu);
-        this.dataToPass.lieu = lieuCarte;
-        this.GetApiServHistoireCookies();
+    this.service.getPlaceCarte(lieu).subscribe((data: any) => {
+      lieuCarte = data;
+      console.log("lieu dans fonction getPlace", data.lieu);
+      this.dataToPass.lieu = lieuCarte;
+      this.GetApiServHistoireCookies();
     });
   }
 
   /**
    * Permet de passer la bonne histoire en fonction de l'état de la petite fille 
    */
-  GetApiServHistoireCookies(){
-    let histoireCookie:any;
-    this.service.getHistoireSiAffame().subscribe((data:any)=>{
+  GetApiServHistoireCookies() {
+    let histoireCookie: any;
+    this.service.getHistoireSiAffame().subscribe((data: any) => {
       histoireCookie = data;
       console.log("histoireCookie", histoireCookie[0].content);
-      
+
       this.dataToPass.textCookie = histoireCookie[0].content;
       this.getApiServMechant();
     });
@@ -231,7 +231,7 @@ export class ArventureFeature {
     });
   }
 
-  
+
 
   /**
    * 
@@ -240,7 +240,7 @@ export class ArventureFeature {
   genererHistoire(data: any) {
     this.comte.innerHTML;
     this.circle.style.cssText = "transform: translateX(-100vw) rotate(360deg); -webkit-transition: 1s 500ms;";
-    
+
     let suiteHistoire: string = "";
 
     var siAffame = (data.etat == "affamée") ? `${data.textCookie}` : "";
@@ -275,20 +275,18 @@ export class ArventureFeature {
     // thas recupération du this
     let str: string = suiteHistoire, i: number = 0, isTag: boolean = false, text: string, thas = this;
     (function type(): void {
+      
       text = str.slice(0, ++i);
       if (text === str) return;
-
       thas.comte.innerHTML = text;
 
       /* ANIMATIONS */
-
       thas.comte.scrollIntoView({ block: "end" }); // descente prompteur
 
       /* FIN ANIMATIONS */
       var char = text.slice(-1);
       if (char === '<') isTag = true;
       if (char === '>') isTag = false;
-
       if (isTag) return type();
       setTimeout(type, 70);
 
@@ -297,6 +295,11 @@ export class ArventureFeature {
 
   }
 
+  /**
+   * Permet de générer la suite de l'histoire en fonction de l'id de la carte qui est entrée en collision
+   * avec le personnage
+   * @param idCarte 
+   */
   suiteHistoire(idCarte: string) {
     console.log("function suite histoire idCarte", idCarte);
     switch (idCarte) {
@@ -304,7 +307,6 @@ export class ArventureFeature {
         console.log("suite Histoire carte1");
 
         this.getApiServObjetsTrouves(`${this.getPlaceByName("tempête")}`);
-
         break;
 
       case 'carte2':
@@ -341,9 +343,9 @@ export class ArventureFeature {
   }
 
   /**
-   * Permet de récvupérer l'ensemble des id des images 
+   * Permet de récupérer l'ensemble des id des images 
    * @param query 
-   * @returns tous les id des images 
+   * @returns {number[]}
    */
   allInformationImg(query: string): number[] {
     let elmts = document.getElementsByClassName(query) as HTMLCollectionOf<HTMLImageElement>;
@@ -358,7 +360,7 @@ export class ArventureFeature {
   /**
    * Permet d'obtenir les informations sur la taille d'un élément et sa position relative par rapport à la zone d'affichage
    * @param element 
-   * @returns informations sur la taille d'un élément et sa position relative par rapport à la zone d'affichage.
+   * @returns {string}
    */
   sizeElemt(element: string): DOMRect {
     let elm = document.getElementById(element) as HTMLImageElement;
@@ -370,7 +372,7 @@ export class ArventureFeature {
    * Permet de récupérer l'ensemble des informations sur la positions des images et la position du personnage 
    * @param imgInformation 
    * @param posPersonnage 
-   * @returns 
+   * @returns {any}
    */
   takeInformation(imgInformation: number[], posPersonnage: DOMRect): any {
     for (let i = 0; i < imgInformation.length; i++) {
