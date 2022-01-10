@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiServiceService } from 'src/app/services/api-service.service';
 import { ArventureFeature } from '../../class/ArventureFeature';
 
 @Component({
@@ -13,12 +14,12 @@ export class CardsComponent implements OnInit {
     {id: 1, img: 'tempete_ok.webp', title: 'Tempête', alt: 'tempete'},
     {id: 2, img: 'moutains_ok.webp', title: 'Montagne', alt: 'montagne'},
     {id: 3, img: 'forestGood.webp', title: 'Forêt', alt: 'foret'},
-    {id: 3, img: 'refuge_ok.webp', title: 'Refuge', alt: 'refuge'}
+    {id: 4, img: 'refuge_ok.webp', title: 'Refuge', alt: 'refuge'}
  ];
  arventure:ArventureFeature;
  id:string;
-  constructor(private route:Router) { 
-    this.arventure = new ArventureFeature();
+  constructor(private route:Router, private apiService:ApiServiceService) { 
+    this.arventure = new ArventureFeature(this.apiService);
   }
 
   ngOnInit(): void {

@@ -1,4 +1,4 @@
-import { Router } from "@angular/router";
+import { ApiServiceService } from "../services/api-service.service";
 
 export class ArventureFeature {
 
@@ -9,10 +9,11 @@ export class ArventureFeature {
   para: HTMLElement = document.querySelector(".paragraphe") as HTMLElement;
   //findepluie: boolean = false;
   waterDrop = document.createElement('i') as HTMLElement;
-
-
-  constructor(private route?: Router) {
-
+  interval: any;
+  apiServ: ApiServiceService
+  service: any;
+  constructor(service: any) {
+    this.service = service;
   }
 
   /**
@@ -47,19 +48,17 @@ export class ArventureFeature {
    * @returns {string | void}
    */
   startSuiteHistoire(id: string): string | void {
-     localStorage.setItem("findepluie", "0");
 
-    if (id == "carte1" && localStorage.getItem("findepluie") == "0") {
+    if (id == "carte1") {
       this.waterDrop = document.createElement('i') as HTMLElement;
-      this.perso = document.getElementById("element") as HTMLImageElement;
-      this.circle = document.querySelector("a.btn-circle") as HTMLElement;
-      this.comte = document.getElementById('comte') as HTMLElement;
-      this.para = document.querySelector(".paragraphe") as HTMLElement;
-      setInterval(this.rainFall, 0.5);
-    }else{
-      this.waterDrop.classList.remove('fas');
-      this.waterDrop.classList.remove('fa-tint');
+      localStorage.setItem("findepluie", "0");
+      this.interval = setInterval(this.rainFall, 0.5);
     }
+    this.perso = document.getElementById("element") as HTMLImageElement;
+    this.circle = document.querySelector("a.btn-circle") as HTMLElement;
+    this.comte = document.getElementById('comte') as HTMLElement;
+    this.para = document.querySelector(".paragraphe") as HTMLElement;
+    this.comte = document.getElementById('comte') as HTMLElement;
     this.EventTouch();
     return this.suiteHistoire(id);
   }
@@ -76,7 +75,8 @@ export class ArventureFeature {
       this.waterDrop.style.animationDuration = Math.random() * 1 + 's';
       this.waterDrop.style.opacity = (Math.random() + 0.4).toString();
       this.waterDrop.style.fontSize = Math.random() * 15 + 'px';
-    }else if (localStorage.getItem("findepluie") == "1"){
+    } else if (localStorage.getItem("findepluie") == "1") {
+      clearInterval(this.interval);
       this.waterDrop.classList.remove('fas');
       this.waterDrop.classList.remove('fa-tint');
     }
@@ -127,56 +127,123 @@ export class ArventureFeature {
     }
   }
 
+  //Création d'un objet pour passer les info 
+  dataToPass = {
+    lieu: "",
+    objetTrouve: "",
+    mechant: "",
+    direction: "",
+    etat: "",
+  }
+
+
+  /**
+ * Passe l'objet trouvé de façon aléatoire
+ * @param lieu
+ */
+  getApiServObjetsTrouves(lieu: string) {
+    let objetsTrouves: any;
+    let objetsTrouves2: any;
+    this.dataToPass.lieu = lieu;
+    this.service.getObjetsTrouves().subscribe((data: any) => {
+
+      objetsTrouves = data;
+      console.log("objets ", objetsTrouves);
+      objetsTrouves2 = objetsTrouves[this.getRandomInt(objetsTrouves.length - 1)].objet;
+      this.dataToPass.objetTrouve = objetsTrouves2;
+      this.getApiServEtatPetiteFille();
+
+    });
+  }
+
+  /**
+   * Passe l'état de la petite fille 
+   * @param lieu 
+   */
+  getApiServEtatPetiteFille() {
+    let etat: any;
+    let etat2: any;
+    this.service.getEtatPetiteFille().subscribe((data: any) => {
+      etat = data;
+      etat2 = etat[this.getRandomInt(etat.length - 1)].etat;
+      this.dataToPass.etat = etat2;
+      this.getApiservCheminDirection();
+    });
+  }
+
+  getApiservCheminDirection() {
+    let cheminDirection: any;
+    let cheminDirection2: any;
+    this.service.getDirectionChemin().subscribe((data: any) => {
+      cheminDirection = data;
+      cheminDirection2 = cheminDirection[this.getRandomInt(cheminDirection.length - 1)].direction;
+      this.dataToPass.direction = cheminDirection2;
+      console.log(this.dataToPass.direction);
+      this.getApiServMechant();
+    });
+  }
+
+  /**
+   * passe le méchant de façon aléatoire 
+   * @param data 
+   */
+  getApiServMechant() {
+    let mechant: any;
+    let mechant2: any;
+    this.service.getMechant().subscribe((data: any) => {
+      //mechants
+      mechant = data;
+      mechant2 = mechant[this.getRandomInt(mechant.length - 1)].nameMechant;
+      // objets trouvés
+      console.log("mechant", mechant2)
+      this.dataToPass.mechant = mechant2;
+      this.genererHistoire(this.dataToPass)
+    });
+  }
+
+
+
+
+
+
   /**
    * 
    * @param lieu Function qui permet de générer l'histoire
    */
-  genererHistoire(lieu: string) {
-    console.log("genererHistoire", lieu);
+  genererHistoire(data: any) {
+    console.log("genererHistoire", data.lieu);
     this.comte.innerHTML;
     this.circle.style.cssText = "transform: translateX(-100vw) rotate(360deg); -webkit-transition: 1s 500ms;";
 
     let suiteHistoire: string = "";
 
-    let mechant = new Array("loup", "ours"); // mechants éventuellements recontrés
-    let mechant2 = mechant[this.getRandomInt(mechant.length)];
+    var siAffame = (data.etat == "affamée") ? " Le petit garçon sorta donc les cookies restants pour lui les donner." : "";
 
-    let objetsListe = new Array("le pin's", "le téléphone", "le foulard", "la basket"); // objets trouvés
-    let objetsListe2 = objetsListe[this.getRandomInt(objetsListe.length)];
-
-    let directionChemin = new Array("droite", "gauche"); // chemin
-    let directionChemin2 = directionChemin[this.getRandomInt(directionChemin.length)];
-
-    let etatFille = new Array("affamée", "saine et sauve"); // etat de la fille
-    let etatFille2 = etatFille[this.getRandomInt(etatFille.length)];
-
-    var siAffame = (etatFille2 == "affamée") ? " Le petit garçon sorta donc les cookies restants pour lui les donner." : "";
-
-    switch (lieu) {
+    switch (data.lieu) {
       case 'montagne':
       case 'forêt':
-        suiteHistoire += `.<br><br>Le petit garçon courageux décida de se diriger vers la ${lieu}`;
+        suiteHistoire += `.<br><br>Le petit garçon courageux décida de se diriger vers la ${data.lieu}`;
         break;
       case 'tempête':
         suiteHistoire += `malgré la tempête.`;
         break;
       case 'refuge':
-        suiteHistoire += `en direction du ${lieu} situé à la pointe de la montagne.`;
+        suiteHistoire += `en direction du ${data.lieu} situé à la pointe de la montagne.`;
         break;
     }
 
-    suiteHistoire += `<br><br>Durant le périple le petit garçon rencontra un méchant ${mechant2} qui avait faim. Fort heuresement, le petit garçon a sorti quelques cookies de son sac qu'il jeta en direction de l'animal affamé afin de se sauver discrétement des griffes de cette bête féroce.<br><br>C'est après de longues heures de marche que le petit garçon trouva un indice lui indiquant qu'il était sur le bon chemin. En effet, il trouva ${objetsListe2} de Lyla au sol. Par conséquent, le petit garçon continua son chemin longuement, jusqu'à attérir à une intersection. Un à droite et un à gauche. Le petit garçon choisissa de faire confiance à son intution: il pris le chemin de ${directionChemin2}.`;
+    suiteHistoire += `<br><br>Durant le périple le petit garçon rencontra un méchant ${data.mechant} qui avait faim.Fort heuresement, le petit garçon a sorti quelques cookies de son sac qu'il jeta en direction de l'animal affamé afin de se sauver discrétement des griffes de cette bête féroce.<br><br>C'est après de longues heures de marche que le petit garçon trouva un indice lui indiquant qu'il était sur le bon chemin. En effet, il trouva ${data.objetTrouve} de Lyla au sol. Par conséquent, le petit garçon continua son chemin longuement, jusqu'à attérir à une intersection. Un à droite et un à gauche. Le petit garçon choisissa de faire confiance à son intution: il pris le chemin de ${data.direction}.`;
 
-    switch (lieu) {
+    switch (data.lieu) {
       case 'montagne':
       case 'forêt':
-        suiteHistoire += `<br><br>Perséverant, il décida de continuer malgré la nuit et le froid tombant. C'est grâce à ses efforts qu'il retrouva la petite fille ${etatFille2} sous une cabane de fortune perdu dans la ${lieu}. ${siAffame} Ils décidèrent tous les 2 de passer la nuit sur place, étant donné les vêtements chauds et le kit de survie que Lyla avait emporté.<br><br>C'est au levé du soleil, que les 2 petits aventuriers reprirent le chemin de la maison....`;
+        suiteHistoire += `<br><br>Perséverant, il décida de continuer malgré la nuit et le froid tombant. C'est grâce à ses efforts qu'il retrouva la petite fille ${data.etat} sous une cabane de fortune perdu dans la ${data.lieu}. ${siAffame} Ils décidèrent tous les 2 de passer la nuit sur place, étant donné les vêtements chauds et le kit de survie que Lyla avait emporté.<br><br>C'est au levé du soleil, que les 2 petits aventuriers reprirent le chemin de la maison....`;
         break;
       case 'tempête':
-        suiteHistoire += `<br><br>Le petit garçon décide de persister malgré l'arrivée de la tempête. C'est grâce à sa persévérance, que le petit garçon retrouvera la petite fille ${etatFille2} réfugiée dans une grotte. ${siAffame} Ils décidèrent de dormir sur place au chaud, grâce au petit feu que Lyla avait fait à l'aide du kit de secours qu'elle avait emporté.<br><br>C'est au petit matin, vers 6h, que les 2 aventuriers reprirent le chemin de la maison....`;
+        suiteHistoire += `<br><br>Le petit garçon décide de persister malgré l'arrivée de la tempête. C'est grâce à sa persévérance, que le petit garçon retrouvera la petite fille ${data.etat} réfugiée dans une grotte. ${siAffame} Ils décidèrent de dormir sur place au chaud, grâce au petit feu que Lyla avait fait à l'aide du kit de secours qu'elle avait emporté.<br><br>C'est au petit matin, vers 6h, que les 2 aventuriers reprirent le chemin de la maison....`;
         break;
       case 'refuge':
-        suiteHistoire += `<br><br>Le petit téméraire décida de se mettre à l'abri pour la nuit dans le refuge il qu'il a vu. C'est au moment où il ouvra la porte qu'il retomba sur la pauvre petite fille ${etatFille2}. ${siAffame}<br><br>C'est le lendemain que les 2 petits aventuriers retrouvèrent le chemin de leur domicile....`;
+        suiteHistoire += `<br><br>Le petit téméraire décida de se mettre à l'abri pour la nuit dans le refuge il qu'il a vu. C'est au moment où il ouvra la porte qu'il retomba sur la pauvre petite fille ${data.etat}. ${siAffame}<br><br>C'est le lendemain que les 2 petits aventuriers retrouvèrent le chemin de leur domicile....`;
         break;
     }
     // thas recupération du this
@@ -210,25 +277,25 @@ export class ArventureFeature {
       case 'carte1':
         console.log("suite Histoire carte1");
 
-        this.genererHistoire("tempête");
+        this.getApiServObjetsTrouves("tempête");
 
         break;
 
       case 'carte2':
         console.log("suite Histoire carte2");
-        this.genererHistoire("montagne");
+        this.getApiServObjetsTrouves("montagne");
         break;
 
       case 'carte3':
         console.log("suite Histoire carte3");
-        this.genererHistoire("forêt");
+        this.getApiServObjetsTrouves("forêt");
         break;
 
       case 'carte4':
         console.log("suite Histoire carte4");
-        this.genererHistoire("refuge");
+        this.getApiServObjetsTrouves("refuge");
         break;
-       
+
     }
   }
 
@@ -360,7 +427,7 @@ export class ArventureFeature {
         console.log("carteId", this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element")));
         console.log("coucou");
         if (localStorage.getItem("coucou") == "0") {
-       
+
           localStorage.setItem("toto", "1");
           localStorage.setItem("coucou", "1");
         }

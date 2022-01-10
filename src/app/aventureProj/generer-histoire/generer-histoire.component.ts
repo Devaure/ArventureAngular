@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArventureFeature } from 'src/app/class/ArventureFeature';
+import { ApiServiceService } from 'src/app/services/api-service.service';
 
 @Component({
   selector: 'app-generer-histoire',
@@ -11,8 +12,8 @@ export class GenererHistoireComponent implements OnInit {
 
   arventure:ArventureFeature;
   suiteHistoire:any;
-  constructor(private route:ActivatedRoute, private router:Router) { 
-    this.arventure = new ArventureFeature();
+  constructor(private route:ActivatedRoute, private router:Router, private apiService:ApiServiceService) { 
+    this.arventure = new ArventureFeature(this.apiService);
   }
 
   ngOnInit(): void {
