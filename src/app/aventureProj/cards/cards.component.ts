@@ -18,7 +18,7 @@ export class CardsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.getDisplayCard();
   }
   suiteHistoire2(idcard:string):void{
     this.route.navigateByUrl(`/genererHistoire/carte${idcard}`);

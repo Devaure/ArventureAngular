@@ -178,22 +178,7 @@ export class ArventureFeature {
       etat = data;
       etat2 = etat[this.getRandomInt(etat.length - 1)].etat;
       this.dataToPass.etat = etat2;
-      this.getApiservCheminDirection();
-    });
-  }
-
-  /**
-   * Passe le chemin que le petit garçon prend de façon aléatoire
-   */
-  getApiservCheminDirection() {
-    let cheminDirection: any;
-    let cheminDirection2: string;
-    this.service.getDirectionChemin().subscribe((data: any) => {
-      cheminDirection = data;
-      console.log("length",cheminDirection.length);
-      cheminDirection2 = cheminDirection[this.getRandomInt(cheminDirection.length)].direction;
-      this.dataToPass.directionChemin = cheminDirection2;
-      this.getPlaceByName(this.dataToPass.lieu);
+      //this.getApiservCheminDirection();
     });
   }
 
@@ -272,7 +257,7 @@ export class ArventureFeature {
         break;
     }
     
-    suiteHistoire += `<br><br>Durant le périple le petit garçon rencontra un méchant ${data.mechant} qui avait faim. Fort heuresement, le petit garçon a sorti quelques cookies de son sac qu'il jeta en direction de l'animal affamé afin de se sauver discrétement des griffes de cette bête féroce.<br><br>C'est après de longues heures de marche que le petit garçon trouva un indice lui indiquant qu'il était sur le bon chemin. En effet, il trouva ${data.objetTrouve} de Lyla au sol. Par conséquent, le petit garçon continua son chemin longuement, jusqu'à attérir à une intersection. Un à droite et un à gauche. Le petit garçon choisissa de faire confiance à son intution: il pris le chemin de ${data.directionChemin}.`;
+    suiteHistoire += `<br><br>Durant le périple le petit garçon rencontra un méchant ${data.mechant} qui avait faim. Fort heuresement, le petit garçon a sorti quelques cookies de son sac qu'il jeta en direction de l'animal affamé afin de se sauver discrétement des griffes de cette bête féroce.<br><br>C'est après de longues heures de marche que le petit garçon trouva un indice lui indiquant qu'il était sur le bon chemin. En effet, il trouva ${data.objetTrouve} de Lyla au sol. Par conséquent, le petit garçon continua son chemin longuement, jusqu'à attérir à une intersection. Un à droite et un à gauche. Le petit garçon choisissa de faire confiance à son intution: il pris le chemin de droite.`;
 
     switch (data.lieu.endroit) {
       case 'montagne':

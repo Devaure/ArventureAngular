@@ -1,11 +1,11 @@
     <div id="presentationCartes" class="image">
     <!-- new card -->
-    <div class="carte" *ngFor="let card of cardList">
+    <div class="carte" *ngFor="let card of cardList" (touchstart)="suiteHistoire2(card.id)">
         <h4>
             {{card?.title}}
         </h4>
         <div id="carte{{card?.id +1}}">
-            <img loading="lazy" class="img" src="../../../assets/images/{{card?.img}}" alt={{card?.alt}} id="carte{{card.id + 1}}">
+            <img loading="lazy" class="img" src="../../../assets/images/{{card?.img}}" alt={{card?.alt}} id="carte{{card?.id + 1}}">
         </div>
        {{isCollideOk()}}
     </div>

@@ -20,10 +20,13 @@ export class GenererHistoireComponent implements OnInit {
     const id= this.route.snapshot.params['id'];
     this.suiteHistoire = this.arventure.startSuiteHistoire(id);
     this.play();
+    
   }
 
   play():void{
     let audio:any = document.querySelector("audio");
+    let btn:any = document.querySelector("#playPause");
+     btn.className = "fas fa-volume-up fa-2x";
     audio.play();
   }
 

@@ -22,10 +22,7 @@ export class ApiServiceService {
   getObjetsTrouves(){
     return this.http.get(`https://localhost:7178/api/ObjetTrouves`);
   }
-
-  getDirectionChemin(){
-    return this.http.get(`https://localhost:7178/api/DirectionChemins`);
-  }
+  
   getEtatPetiteFille(){
     return this.http.get(`https://localhost:7178/api/EtatPersonnages`);
   }
