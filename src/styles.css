@@ -31,7 +31,7 @@ html, body,* {
   ::-webkit-scrollbar-corner {
     background: rgba(0,0,0,.75);
   }
-  /* animation pluie  (Dans style.css car classe générée dynamiquement)*/
+  /* animation pluie */
   .fa-tint {
     color: rgb(160,160,160);
     position: absolute;
@@ -45,7 +45,7 @@ html, body,* {
   }
  
 
-
+  
   
   
   

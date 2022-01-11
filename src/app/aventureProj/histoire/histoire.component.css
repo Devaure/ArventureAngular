@@ -41,6 +41,7 @@
     scroll-behavior: smooth;
     font-family: New Times Roman;
     font-size: 26px;
+    line-height: 40px !important;
     background: rgba(188,188,188,0.2);
     border-radius: 4px;
     -webkit-border-radius: 4px;
