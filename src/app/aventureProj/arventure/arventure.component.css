@@ -10,8 +10,9 @@
   */
 #element {
   position: relative;
-  height: 150px;
-  bottom: 150px;
+  height: 14vh;
+  width:auto;
+  bottom: 14vh;
   display: block;
   margin-left: auto;
   margin-right: auto;

@@ -5,7 +5,7 @@
             {{card.title}}
         </h4>
         <div id="carte{{card.id}}">
-            <img loading="lazy" class="img" src="../../../assets/images/{{card.img}}" alt={{card.alt}} id="carte{{card.id}}">
+            <img loading="lazy" class="img" src="../../../assets/images/{{card.img}}" alt={{card.alt}} id="carte{{card.id}}" (touchstart)="suiteHistoire2(card.id);">
         </div>
        {{isCollideOk()}}
     </div>

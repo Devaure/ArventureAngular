@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ArventureFeature } from '../../class/ArventureFeature';
+import { ArventureFeature} from '../../class/ArventureFeature';
 
 @Component({
   selector: 'app-cards',
@@ -8,12 +8,12 @@ import { ArventureFeature } from '../../class/ArventureFeature';
   styleUrls: ['./cards.component.css']
 
 })
-export class CardsComponent implements OnInit {
+export class CardsComponent implements OnInit { 
   cardList:any[]= [
     {id: 1, img: 'tempete_ok.webp', title: 'Tempête', alt: 'tempete'},
     {id: 2, img: 'moutains_ok.webp', title: 'Montagne', alt: 'montagne'},
     {id: 3, img: 'forestGood.webp', title: 'Forêt', alt: 'foret'},
-    {id: 3, img: 'refuge_ok.webp', title: 'Refuge', alt: 'refuge'}
+    {id: 4, img: 'refuge_ok.webp', title: 'Refuge', alt: 'refuge'}
  ];
  arventure:ArventureFeature;
  id:string;
@@ -23,6 +23,14 @@ export class CardsComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  suiteHistoire2(idcard:string):void{
+    let hDOM:number = document.body.clientHeight;
+    let wDOM:number = document.body.clientWidth;
+
+    this.route.navigateByUrl(`/genererHistoire/carte${idcard}`);
+ 
+  }
+
   isCollideOk():any{
     if(localStorage.getItem("toto") == "1"){
 

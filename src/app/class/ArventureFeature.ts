@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 export class ArventureFeature {
 
   perso: HTMLImageElement = document.getElementById("element") as HTMLImageElement;
-  pad: number = 70; //padding function isCollide
+  pad: number = this.getPad(); //padding function isCollide
   comte: HTMLElement = document.getElementById('comte') as HTMLElement;
   circle: HTMLElement = document.querySelector("a.btn-circle") as HTMLElement;
   para: HTMLElement = document.querySelector(".paragraphe") as HTMLElement;
@@ -29,6 +29,17 @@ export class ArventureFeature {
     this.isCollide(this.sizeElemt('element'), this.sizeElements('img'));
     this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"));
     localStorage.setItem("findepluie", "1");
+  }
+
+  getPad():number{
+    let domHeight:number = document.body.clientHeight;
+    if(domHeight>=1080){
+      return 70;
+    }else if(domHeight>400){
+      return 140;
+    }else{
+      return 190;
+    }
   }
 
   /**
