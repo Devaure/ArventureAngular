@@ -1,6 +1,6 @@
     <div id="presentationCartes" class="image">
     <!-- new card -->
-    <div class="carte" *ngFor="let card of cardList" (touchstart)="suiteHistoire2(card.id)">
+    <div class="carte" *ngFor="let card of cardList" (touchstart)="suiteHistoire2(card?.id +1)">
         <h4>
             {{card?.title}}
         </h4>

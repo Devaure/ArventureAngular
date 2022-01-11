@@ -12,6 +12,7 @@ export class GenererHistoireComponent implements OnInit {
 
   arventure:ArventureFeature;
   suiteHistoire:any;
+  histoire:any;
   constructor(private route:ActivatedRoute, private router:Router, private apiService:ApiServiceService) { 
     this.arventure = new ArventureFeature(this.apiService);
   }
@@ -20,7 +21,14 @@ export class GenererHistoireComponent implements OnInit {
     const id= this.route.snapshot.params['id'];
     this.suiteHistoire = this.arventure.startSuiteHistoire(id);
     this.play();
-    
+    this.getHistoireService();
+  }
+
+  getHistoireService(){
+    this.apiService.getHistoire(1).subscribe(response =>{
+        this.histoire = response;
+        console.log(response)
+    })
   }
 
   play():void{
