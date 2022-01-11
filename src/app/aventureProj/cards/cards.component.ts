@@ -10,12 +10,7 @@ import { ArventureFeature } from '../../class/ArventureFeature';
 
 })
 export class CardsComponent implements OnInit {
-  cardList:any[]= [
-    {id: 1, img: 'tempete_ok.webp', title: 'Tempête', alt: 'tempete'},
-    {id: 2, img: 'moutains_ok.webp', title: 'Montagne', alt: 'montagne'},
-    {id: 3, img: 'forestGood.webp', title: 'Forêt', alt: 'foret'},
-    {id: 4, img: 'refuge_ok.webp', title: 'Refuge', alt: 'refuge'}
- ];
+  cardList:any[];
  arventure:ArventureFeature;
  id:string;
   constructor(private route:Router, private apiService:ApiServiceService) { 
@@ -23,7 +18,9 @@ export class CardsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getDisplayCard();
   }
+
   isCollideOk():any{
     if(localStorage.getItem("toto") == "1"){
 
@@ -38,5 +35,12 @@ export class CardsComponent implements OnInit {
      
     }
     localStorage.setItem("toto", "0");
+  }
+
+  getDisplayCard(){ 
+    this.apiService.getCarte().subscribe((data:any)=>{
+        this.cardList = data;
+        console.log(this.cardList);
+    });
   }
 }

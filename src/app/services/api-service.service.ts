@@ -37,4 +37,8 @@ export class ApiServiceService {
   getHistoireSiAffame(){
     return this.http.get(`https://localhost:7178/api/TextCookies`);
   }
+
+  getCarte(){
+    return this.http.get(`https://localhost:7178/api/Cartes`);
+  }
 }
