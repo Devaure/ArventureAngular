@@ -128,10 +128,10 @@ export class ArventureFeature {
    * Création d'un objet pour passer les informations liées à générer histoire
    */
   dataToPass = {
+    directionChemin: "",
     lieu: "",
     objetTrouve: "",
     mechant: "",
-    directionChemin: "",
     etat: "",
     textCookie: "",
   }
@@ -178,9 +178,9 @@ export class ArventureFeature {
     let cheminDirection2: string;
     this.service.getDirectionChemin().subscribe((data: any) => {
       cheminDirection = data;
-      cheminDirection2 = cheminDirection[this.getRandomInt(cheminDirection.length - 1)].direction;
+      console.log("length",cheminDirection.length);
+      cheminDirection2 = cheminDirection[this.getRandomInt(cheminDirection.length)].direction;
       this.dataToPass.directionChemin = cheminDirection2;
-      console.log(this.dataToPass.directionChemin);
       this.getPlaceByName(this.dataToPass.lieu);
     });
   }
@@ -238,6 +238,8 @@ export class ArventureFeature {
    * @param lieu Function qui permet de générer l'histoire
    */
   genererHistoire(data: any) {
+    console.log(data);
+    
     this.comte.innerHTML;
     this.circle.style.cssText = "transform: translateX(-100vw) rotate(360deg); -webkit-transition: 1s 500ms;";
 
@@ -257,7 +259,7 @@ export class ArventureFeature {
         suiteHistoire += `en direction du ${data.lieu.endroit} situé à la pointe de la montagne.`;
         break;
     }
-    console.log("chemin droite ou gauche", data.directionChemin);
+    
     suiteHistoire += `<br><br>Durant le périple le petit garçon rencontra un méchant ${data.mechant} qui avait faim. Fort heuresement, le petit garçon a sorti quelques cookies de son sac qu'il jeta en direction de l'animal affamé afin de se sauver discrétement des griffes de cette bête féroce.<br><br>C'est après de longues heures de marche que le petit garçon trouva un indice lui indiquant qu'il était sur le bon chemin. En effet, il trouva ${data.objetTrouve} de Lyla au sol. Par conséquent, le petit garçon continua son chemin longuement, jusqu'à attérir à une intersection. Un à droite et un à gauche. Le petit garçon choisissa de faire confiance à son intution: il pris le chemin de ${data.directionChemin}.`;
 
     switch (data.lieu.endroit) {
