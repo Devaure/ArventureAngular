@@ -17,7 +17,6 @@ export class HistoireComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.arventure.stop();
   
   }
 

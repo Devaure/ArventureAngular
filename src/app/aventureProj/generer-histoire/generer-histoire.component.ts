@@ -18,7 +18,25 @@ export class GenererHistoireComponent implements OnInit {
   ngOnInit(): void {
     const id= this.route.snapshot.params['id'];
     this.suiteHistoire = this.arventure.startSuiteHistoire(id);
-    this.arventure.stop();
+    this.play();
+  }
+
+  play():void{
+    let audio:any = document.querySelector("audio");
+    audio.play();
+  }
+
+  playPause():void{
+    let audio:any = document.querySelector("audio");
+    let btn:any = document.querySelector("#playPause");
+    console.log("ok");
+    if(audio.paused){
+      btn.className = "fas fa-volume-up fa-2x";
+      audio.play();
+    }else{
+      btn.className = "fas fa-volume-mute fa-2x";
+      audio.pause();
+    }
   }
 
   redirectHome(){

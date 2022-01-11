@@ -1,10 +1,9 @@
 <header ngClass={{bground()}}>
-    <audio autoplay loop>
-        <source src={{son()}}>
-    </audio>
+<i class="fas fa-volume-mute fa-2x" id="playPause" (click)="playPause()"></i>
+<audio loop>
+    <source src={{son()}}>
+</audio>
     <div class="intro-body bg-image">
-        <i class="far fa-play-circle" (click)="this.arventure.lecture('comte')" title="Narrateur"></i>
-        <i class="fas fa-stop-circle" (click)="this.arventure.stop()"></i>
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 mx-auto">

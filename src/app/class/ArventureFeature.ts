@@ -15,17 +15,7 @@ export class ArventureFeature {
 
   }
 
-  stop(){
-    speechSynthesis.cancel();
-  }
-  lecture(id:any){
-    let inputTexte:any = document.getElementById(id);
-    let texte:any = inputTexte?.textContent;
-    let parole:any = new SpeechSynthesisUtterance();
-    parole.text = texte;
-    parole.lang = 'fr-FR';
-    speechSynthesis.speak(parole)
-  }
+  
   /**
    * Permet d'être appelé dans le component arventure et d'exécuter ces différentes methodes.
    */
