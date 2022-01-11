@@ -1,0 +1,26 @@
+#playPause{
+    position: fixed;
+    top:15px;
+    right:15px;
+    cursor:pointer !important;
+    padding:8px;
+    border:3px solid #fff;
+    border-radius: 1em;
+    background-color: rgba(125,125,125,0.4);
+    transition: all 500ms ease-in-out;
+    z-index: 9999;
+}
+#playPause:hover{
+    border:3px solid rgb(209, 209, 209);
+    background-color: rgba(125,125,125,0.6);
+}
+.fa-volume-mute:before{
+    cursor:pointer !important;
+}
+
+@media all and (max-width:510px) {
+    #playPause{
+        top:auto;
+        bottom:15px;
+    }
+}

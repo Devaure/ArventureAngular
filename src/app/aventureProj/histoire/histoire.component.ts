@@ -8,6 +8,7 @@ import { ApiServiceService } from 'src/app/services/api-service.service';
   templateUrl: './histoire.component.html',
   styleUrls: ['./histoire.component.css']
 })
+
 export class HistoireComponent implements OnInit {
 histoire:any;
   constructor(private route:Router, private apiServ:ApiServiceService) { }

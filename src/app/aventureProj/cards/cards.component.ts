@@ -18,8 +18,13 @@ export class CardsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getDisplayCard();
+
   }
+  suiteHistoire2(idcard:string):void{
+    this.route.navigateByUrl(`/genererHistoire/carte${idcard}`);
+ 
+    this.getDisplayCard();
+}
 
   isCollideOk():any{
     if(localStorage.getItem("toto") == "1"){
@@ -32,7 +37,6 @@ export class CardsComponent implements OnInit {
         localStorage.setItem("coucou", "0");
         this.route.navigateByUrl("/arventure");
       }
-     
     }
     localStorage.setItem("toto", "0");
   }

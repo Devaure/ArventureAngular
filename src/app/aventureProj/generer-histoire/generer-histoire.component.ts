@@ -19,6 +19,25 @@ export class GenererHistoireComponent implements OnInit {
   ngOnInit(): void {
     const id= this.route.snapshot.params['id'];
     this.suiteHistoire = this.arventure.startSuiteHistoire(id);
+    this.play();
+  }
+
+  play():void{
+    let audio:any = document.querySelector("audio");
+    audio.play();
+  }
+
+  playPause():void{
+    let audio:any = document.querySelector("audio");
+    let btn:any = document.querySelector("#playPause");
+    console.log("ok");
+    if(audio.paused){
+      btn.className = "fas fa-volume-up fa-2x";
+      audio.play();
+    }else{
+      btn.className = "fas fa-volume-mute fa-2x";
+      audio.pause();
+    }
   }
 
   redirectHome(){
@@ -41,4 +60,24 @@ export class GenererHistoireComponent implements OnInit {
     }
     return bg
   }
+
+  son(){
+    const id= this.route.snapshot.params['id'];
+    let sn:any;
+    if (id==="carte1"){
+    sn = "../../../assets/audio/pluie.mp3";
+    }
+    else if (id==="carte2"){
+      sn = "../../../assets/audio/montagne.mp3";
+      }
+    else if (id==="carte3"){
+      sn = "../../../assets/audio/foret.mp3";
+      }
+    else{
+      sn = "../../../assets/audio/refuge.mp3";
+    }
+  return sn;
+}
+
+
 }
