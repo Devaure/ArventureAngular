@@ -16,6 +16,7 @@ arventure:ArventureFeature;
  
   ngOnInit(): void {
     this.arventure.start();
+    this.arventure.stop();
   }
  
 } 

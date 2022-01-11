@@ -18,7 +18,7 @@ export class GenererHistoireComponent implements OnInit {
   ngOnInit(): void {
     const id= this.route.snapshot.params['id'];
     this.suiteHistoire = this.arventure.startSuiteHistoire(id);
-    //this.arventure.son(id);
+    this.arventure.stop();
   }
 
   redirectHome(){
@@ -59,4 +59,6 @@ export class GenererHistoireComponent implements OnInit {
     }
   return sn;
 }
+
+
 }

@@ -1,10 +1,8 @@
 <header class="masthead">
-
-    <!-- <audio controls autoplay>
-        <source src="../../../assets/audio/squid-game-tone.mp3">
-    </audio> -->
-
       <div class="intro-body bg-image">
+        <img src="../../../assets/images/play.webp" alt="" width="30px" height="30px" (click)="this.arventure.lecture('story')">
+        <img src="../../../assets/images/stop.jpg" alt="" width="30px" height="30px" (click)="this.arventure.stop()">
+
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 mx-auto">
@@ -12,7 +10,7 @@
                     <h1 class="perso-shadow">LAST CHANCE</h1>
                     <p class="intro-text"></p>
                     <hr>
-                    <p class="paragraphe">Tout a débuté un matin lors d&#39;un appel du shérif local,
+                    <p id="story" class="paragraphe">Tout a débuté un matin lors d&#39;un appel du shérif local,
                         annonçant la disparition de Lyla, la petite amie de ce jeune garçon s&#39;appelant
                         Artventure.<br /><br />Choqué par cette annonce, le petit se réfugia en sanglots dans sa
                         chambre. Il prépara son sac à dos en le chargeant d&#39;une lampe torche, d&#39;un vêtement
