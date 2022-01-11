@@ -31,43 +31,18 @@ html, body,* {
   ::-webkit-scrollbar-corner {
     background: rgba(0,0,0,.75);
   }
-
-  /*
-    _____  ______ _____   _____  ____  
-   |  __ \|  ____|  __ \ / ____|/ __ \ 
-   | |__) | |__  | |__) | (___ | |  | |
-   |  ___/|  __| |  _  / \___ \| |  | |
-   | |    | |____| | \ \ ____) | |__| |
-   |_|    |______|_|  \_\_____/ \____/ 
-                                       
-                                       
-  */
-  .masthead{
-    background: url("../../../assets/images/bg_ok.webp") no-repeat center;
-    background-size: cover;
+  /* animation pluie  (Dans style.css car classe générée dynamiquement)*/
+  .fa-tint {
+    color: rgb(160,160,160);
+    position: absolute;
+    top: -20px;
+    animation: fall linear forwards;
   }
-
-  .tempete{
-    background: url("../../../assets/images/tempete_ok.webp") no-repeat center !important;
-    background-size: cover;
+  @keyframes fall {
+    to {
+      transform: translateY(105vh);
+    }
   }
-
-  .montagne{
-    background: url("../../../assets/images/moutains_ok.webp") no-repeat center !important;
-    background-size: cover;
-  }
-  .foret{
-    background: url("../../../assets/images/forestGood.webp") no-repeat center !important;
-    background-size: cover;
-  }
-
-  .refuge{
-    background: url("../../../assets/images/refuge_ok.webp") no-repeat center !important;
-    background-size: cover;
-  }
-
-  
-  
   
   
   

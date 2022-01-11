@@ -8,15 +8,17 @@
                                        
                                        
   */
-  #element {
-    position: relative;
-    height: 150px;
-    bottom: 150px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
+#element {
+  position: relative;
+  height: 14vh;
+  width:auto;
+  bottom: 14vh;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
   
   
   

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ArventureFeature } from '../../class/ArventureFeature';
+import { ArventureFeature} from '../../class/ArventureFeature';
 
 @Component({
   selector: 'app-cards',
@@ -8,7 +8,7 @@ import { ArventureFeature } from '../../class/ArventureFeature';
   styleUrls: ['./cards.component.css']
 
 })
-export class CardsComponent implements OnInit {
+export class CardsComponent implements OnInit { 
   cardList:any[]= [
     {id: 1, img: 'tempete_ok.webp', title: 'Tempête', alt: 'tempete'},
     {id: 2, img: 'moutains_ok.webp', title: 'Montagne', alt: 'montagne'},
@@ -24,17 +24,24 @@ export class CardsComponent implements OnInit {
   ngOnInit(): void {
 
   }
+  suiteHistoire2(idcard:string):void{
+    let hDOM:number = document.body.clientHeight;
+    let wDOM:number = document.body.clientWidth;
+
+    this.route.navigateByUrl(`/genererHistoire/carte${idcard}`);
+ 
+  }
+
   isCollideOk():any{
     if(localStorage.getItem("toto") == "1"){
 
       this.id = this.arventure.idCarteCollide();
       console.log("CArteId", this.id);
-      if (this.id){
+      if(this.id){
         this.route.navigateByUrl(`/genererHistoire/${this.id}`);
-      }
-      else{
-        localStorage.setItem("coucou","0");
-        this.route.navigateByUrl(`/arventure`);
+      }else{
+        localStorage.setItem("coucou", "0");
+        this.route.navigateByUrl("/arventure");
       }
     }
     localStorage.setItem("toto", "0");
