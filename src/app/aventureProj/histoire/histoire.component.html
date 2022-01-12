@@ -1,8 +1,5 @@
 <header class="masthead">
       <div class="intro-body bg-image">
-        <img src="../../../assets/images/play.webp" alt="Play" width="30px" height="30px"(click)="this.arventure.lecture('story')">
-        <img src="../../../assets/images/stop.jpg" alt="Stop" width="30px" height="30px" (click)="this.arventure.stop()">
-
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 mx-auto">
@@ -10,12 +7,7 @@
                     <h1 class="perso-shadow">LAST CHANCE</h1>
                     <p class="intro-text"></p>
                     <hr>
-                    <p id="story" class="paragraphe">Tout a débuté un matin lors d&#39;un appel du shérif local,
-                        annonçant la disparition de Lyla, la petite amie de ce jeune garçon s&#39;appelant
-                        Artventure.<br /><br />Choqué par cette annonce, le petit se réfugia en sanglots dans sa
-                        chambre. Il prépara son sac à dos en le chargeant d&#39;une lampe torche, d&#39;un vêtement
-                        chaud et de quelques petits cookies.<br /><br />Ne disant rien à ses parents, il se leva à
-                        l&#39;aube sur la pointe des pieds pour aller délivrer la petite Lyla <span id="#topParagraphe"></span>
+                    <p class="paragraphe">{{histoire?.content}}<span id="#topParagraphe"></span>
                     </p>
                     <a class="btn btn-link btn-circle" role="button" (click)="redirectPerso()">
                         <i class="fa fa-angle-double-down animated"></i>

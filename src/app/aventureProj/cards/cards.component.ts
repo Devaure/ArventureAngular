@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ArventureFeature} from '../../class/ArventureFeature';
+import { ApiServiceService } from 'src/app/services/api-service.service';
+import { ArventureFeature } from '../../class/ArventureFeature';
 
 @Component({
   selector: 'app-cards',
@@ -8,29 +9,22 @@ import { ArventureFeature} from '../../class/ArventureFeature';
   styleUrls: ['./cards.component.css']
 
 })
-export class CardsComponent implements OnInit { 
-  cardList:any[]= [
-    {id: 1, img: 'tempete_ok.webp', title: 'Tempête', alt: 'tempete'},
-    {id: 2, img: 'moutains_ok.webp', title: 'Montagne', alt: 'montagne'},
-    {id: 3, img: 'forestGood.webp', title: 'Forêt', alt: 'foret'},
-    {id: 4, img: 'refuge_ok.webp', title: 'Refuge', alt: 'refuge'}
- ];
+export class CardsComponent implements OnInit {
+  cardList:any[];
  arventure:ArventureFeature;
  id:string;
-  constructor(private route:Router) { 
-    this.arventure = new ArventureFeature();
+  constructor(private route:Router, private apiService:ApiServiceService) { 
+    this.arventure = new ArventureFeature(this.apiService);
   }
 
   ngOnInit(): void {
-
+    this.getDisplayCard();
   }
   suiteHistoire2(idcard:string):void{
-    let hDOM:number = document.body.clientHeight;
-    let wDOM:number = document.body.clientWidth;
-
     this.route.navigateByUrl(`/genererHistoire/carte${idcard}`);
  
-  }
+    this.getDisplayCard();
+}
 
   isCollideOk():any{
     if(localStorage.getItem("toto") == "1"){
@@ -45,5 +39,12 @@ export class CardsComponent implements OnInit {
       }
     }
     localStorage.setItem("toto", "0");
+  }
+
+  getDisplayCard(){ 
+    this.apiService.getCarte().subscribe((data:any)=>{
+        this.cardList = data;
+        console.log(this.cardList);
+    });
   }
 }

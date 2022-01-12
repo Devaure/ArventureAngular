@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ArventureFeature } from 'src/app/class/ArventureFeature';
+import { ApiServiceService } from 'src/app/services/api-service.service';
 
 @Component({
   selector: 'app-histoire',
@@ -9,20 +10,22 @@ import { ArventureFeature } from 'src/app/class/ArventureFeature';
 })
 
 export class HistoireComponent implements OnInit {
-  arventure :ArventureFeature;
-
-  constructor(private route:Router) { 
-    this.arventure = new ArventureFeature();
-
-  }
+histoire:any;
+  constructor(private route:Router, private apiServ:ApiServiceService) { }
 
   ngOnInit(): void {
-    this.arventure.stop();
-  
+  this.getHistoireService();
   }
 
   redirectPerso(){
     localStorage.setItem("toto", "0");
       this.route.navigateByUrl("/arventure");
+  }
+
+  getHistoireService(){
+    this.apiServ.getHistoire(1).subscribe(response =>{
+        this.histoire = response;
+        console.log(response)
+    })
   }
 }
