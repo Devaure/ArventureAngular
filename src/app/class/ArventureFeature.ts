@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 export class ArventureFeature {
 
   perso: HTMLImageElement = document.getElementById("element") as HTMLImageElement;
-  pad: number = 75; //padding function isCollide
+  pad: number = this.getPad(); //padding function isCollide
   comte: HTMLElement = document.getElementById('comte') as HTMLElement;
   circle: HTMLElement = document.querySelector("a.btn-circle") as HTMLElement;
   para: HTMLElement = document.querySelector(".paragraphe") as HTMLElement;
@@ -35,11 +35,22 @@ export class ArventureFeature {
     this.circle = document.querySelector("a.btn-circle") as HTMLElement;
     this.para = document.querySelector(".paragraphe") as HTMLElement;
     this.comte = document.getElementById('comte') as HTMLElement;
-    this.resetPers();
+    this.resetPers("");
     this.EventTouch();
     this.isCollide(this.sizeElemt('element'), this.sizeElements('img'));
     this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"));
     localStorage.setItem("findepluie", "1");
+  }
+
+  getPad():number{
+    let domHeight:number = document.body.clientHeight;
+    if(domHeight>=1080){
+      return 70;
+    }else if(domHeight>400){
+      return 140;
+    }else{
+      return 190;
+    }
   }
 
   /**
@@ -63,7 +74,7 @@ export class ArventureFeature {
     this.circle = document.querySelector("a.btn-circle") as HTMLElement;
     this.comte = document.getElementById('comte') as HTMLElement;
     this.para = document.querySelector(".paragraphe") as HTMLElement;
-    if(id=="carte1"){
+    if (id == "carte1") {
       localStorage.setItem("findepluie", "0");
       setInterval(this.rainFall, 0.5);
     }
@@ -75,34 +86,20 @@ export class ArventureFeature {
  * Fonction qui permet de générer la pluie 
  */
   rainFall(): void {
-
-    
-
-    if (localStorage.getItem("findepluie")!="1") {
+    if (localStorage.getItem("findepluie") != "1") {
       this.waterDrop = document.createElement('i') as HTMLElement;
       this.waterDrop.classList.add('fas');
       this.waterDrop.classList.add('fa-tint');
       this.waterDrop.style.left = Math.random() * window.innerWidth + 'px';
-      this.waterDrop.style.animationDuration = Math.random() * 2 + 's';
+      this.waterDrop.style.animationDuration = Math.random() * 1 + 's';
       this.waterDrop.style.opacity = (Math.random() + 0.4).toString();
       this.waterDrop.style.fontSize = Math.random() * 15 + 'px';
     }
-
     document.body.appendChild(this.waterDrop);
-
     setTimeout(() => {
       this.waterDrop.remove();
     }, 1000)
 
-  }
-
-  /**
-   * Function qui permet le rechargement de la page
-   */
-  recharger(): void {
-    if(!document.querySelector(`img#${this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element"))}`)){
-      window.location.href='/arventure';
-}
   }
 
   /**
@@ -136,7 +133,7 @@ export class ArventureFeature {
       localStorage.setItem("coucou", "0");
       localStorage.setItem("findepluie", "1");
     }
-    if(this.perso){
+    if (this.perso) {
       this.perso.style.removeProperty('bottom');
       this.perso.style.bottom = "150px;";
       this.perso.style.removeProperty('right');
@@ -180,8 +177,6 @@ export class ArventureFeature {
       case 'refuge':
         suiteHistoire += `en direction du ${lieu} situé à la pointe de la montagne.`;
         break;
-      default:
-        this.resetPers();
     }
 
     suiteHistoire += `<br><br>Durant le périple le petit garçon rencontra un méchant ${mechant2} qui avait faim. Fort heuresement, le petit garçon a sorti quelques cookies de son sac qu'il jeta en direction de l'animal affamé afin de se sauver discrétement des griffes de cette bête féroce.<br><br>C'est après de longues heures de marche que le petit garçon trouva un indice lui indiquant qu'il était sur le bon chemin. En effet, il trouva ${objetsListe2} de Lyla au sol. Par conséquent, le petit garçon continua son chemin longuement, jusqu'à attérir à une intersection. Un à droite et un à gauche. Le petit garçon choisissa de faire confiance à son intution: il pris le chemin de ${directionChemin2}.`;
@@ -197,8 +192,6 @@ export class ArventureFeature {
       case 'refuge':
         suiteHistoire += `<br><br>Le petit téméraire décida de se mettre à l'abri pour la nuit dans le refuge il qu'il a vu. C'est au moment où il ouvra la porte qu'il retomba sur la pauvre petite fille ${etatFille2}. ${siAffame}<br><br>C'est le lendemain que les 2 petits aventuriers retrouvèrent le chemin de leur domicile....`;
         break;
-      default:
-        this.resetPers();
     }
     // thas recupération du this
     let str: string = suiteHistoire, i: number = 0, isTag: boolean = false, text: string, thas = this;
@@ -249,8 +242,6 @@ export class ArventureFeature {
         console.log("suite Histoire carte4");
         this.genererHistoire("refuge");
         break;
-      default:
-        //this.recharger();
     }
 
 
@@ -305,9 +296,7 @@ export class ArventureFeature {
    * @returns 
    */
   takeInformation(imgInformation: number[], posPersonnage: DOMRect): any {
-
     for (let i = 0; i < imgInformation.length; i++) {
-
       let posImg = document.getElementById(`${imgInformation[i]}`)!.getBoundingClientRect() as DOMRect;
       if (posPersonnage.x > posImg.x && posPersonnage.x + posPersonnage.width < posImg.x + posImg.width) {
         return imgInformation[i];
@@ -361,9 +350,12 @@ export class ArventureFeature {
   }
 
 
-
-
-  isCollide(pers: DOMRect, img: DOMRect[]) {
+  /**
+   * Détection de la colision entre le personnage et les cartes
+   * @param pers 
+   * @param img 
+   */
+  isCollide(pers: DOMRect, img: DOMRect[]): void {
 
     for (let i = 0; i < img.length; i++) {
       //récupération des informations img et pers 
@@ -371,19 +363,19 @@ export class ArventureFeature {
       console.log(`img pos right/left:  ${img[i].x} , largeur img: ${img[i].width}`);
       console.log(`pers pos top/bottom:  ${pers.y} , hauteur pers: ${pers.height}`);
       console.log(`pers pos right/left:  ${pers.x} , largeur pers: ${pers.width}`);
-      var pad = 70;
-      if (pers.y + pers.height + img[i].height - pad < img[i].height) {
+
+      if (pers.y + pers.height + img[i].height - this.pad < img[i].height) {
 
         this.resetPers();
 
-      } else if (pers.y - pad > img[i].height) {
+      } else if (pers.y - this.pad > img[i].height) {
 
         console.log("en dehors en bas");
 
-      } else if (pers.x + pers.height - pad < img[i].x || pers.x + pers.width > img[i].x) {
-        console.log("carteId", this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element")));
-        console.log("coucou");
+      } else if (pers.x + pers.height - this.pad < img[i].x || pers.x + pers.width > img[i].x) {
+       
         if (localStorage.getItem("coucou") == "0") {
+       
           localStorage.setItem("toto", "1");
           localStorage.setItem("coucou", "1");
         }
