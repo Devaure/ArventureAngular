@@ -290,7 +290,7 @@ export class ArventureFeature {
       if (char === '<') isTag = true;
       if (char === '>') isTag = false;
       if (isTag) return type();
-      setTimeout(type, 70);
+      setTimeout(type, 65);
 
       thas.resetPers(suiteHistoire);
     }());
