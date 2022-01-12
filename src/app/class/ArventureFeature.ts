@@ -1,3 +1,5 @@
+import { ApiServiceService } from "../services/api-service.service";
+
 export class ArventureFeature {
 
   perso: HTMLImageElement = document.getElementById("element") as HTMLImageElement;
@@ -8,8 +10,9 @@ export class ArventureFeature {
   //findepluie: boolean = false;
   waterDrop = document.createElement('i') as HTMLElement;
   interval: any;
-  service: any;
-  constructor(service: any) {
+  service: ApiServiceService;
+  
+  constructor(service: ApiServiceService) {
     this.service = service;
   }
 
@@ -247,7 +250,7 @@ export class ArventureFeature {
     switch (data.lieu.endroit) {
       case 'montagne':
       case 'forêt':
-        suiteHistoire += `.<br><br>Le petit garçon courageux décida de se diriger vers la ${data.lieu.endroit}`;
+        suiteHistoire += `.<br><br>Arventure plein de courage décida de se diriger vers la ${data.lieu.endroit}.`;
         break;
       case 'tempête':
         suiteHistoire += `malgré la ${data.lieu.endroit}.`;
@@ -257,18 +260,18 @@ export class ArventureFeature {
         break;
     }
     
-    suiteHistoire += `<br><br>Durant le périple le petit garçon rencontra un méchant ${data.mechant} qui avait faim. Fort heuresement, le petit garçon a sorti quelques cookies de son sac qu'il jeta en direction de l'animal affamé afin de se sauver discrétement des griffes de cette bête féroce.<br><br>C'est après de longues heures de marche que le petit garçon trouva un indice lui indiquant qu'il était sur le bon chemin. En effet, il trouva ${data.objetTrouve} de Lyla au sol. Par conséquent, le petit garçon continua son chemin longuement, jusqu'à attérir à une intersection. Un à droite et un à gauche. Le petit garçon choisissa de faire confiance à son intution: il pris le chemin de droite.`;
+    suiteHistoire += `<br><br>Durant le périple le petit garçon rencontra un méchant ${data.mechant} qui avait très faim. Fort heureusement le petit garçon sorti quelques cookies de son sac qu'il jeta en direction de l'animal affamé afin de se sauver discrètement des griffes de cette bête féroce.<br><br> C'est après de longues heures de marche que le petit garçon trouva un indice lui indiquant qu'il était sur le bon chemin. En effet, il trouva ${data.objetTrouve} de Lyla au sol. Par conséquent, le petit garçon continua son chemin longuement jusqu'à atterrir à une intersection, une à droite et une à gauche. Le petit garçon choisit de faire confiance à son intuition en prenant le chemin de droite.`;
 
     switch (data.lieu.endroit) {
       case 'montagne':
       case 'forêt':
-        suiteHistoire += `<br><br>Perséverant, il décida de continuer malgré la nuit et le froid tombant. C'est grâce à ses efforts qu'il retrouva la petite fille ${data.etat} sous une cabane de fortune perdu dans la ${data.lieu.endroit}. ${siAffame} Ils décidèrent tous les 2 de passer la nuit sur place, étant donné les vêtements chauds et le kit de survie que Lyla avait emporté.<br><br>C'est au levé du soleil, que les 2 petits aventuriers reprirent le chemin de la maison....`;
+        suiteHistoire += `<br><br>C'est avec persévérance qu'il décida de continuer malgré la nuit et le froid tombant. C'est grâce à ses efforts qu'il retrouva la petite fille ${data.etat} sous une cabane de fortune perdue dans la ${data.lieu.endroit}. ${siAffame} Ils décidèrent tous les deux de passer la nuit sur place, grâce aux vêtements chauds et au kit de survie que Lyla avait emportés.<br><br>C'est au lever du soleil, que les 2 petits aventuriers reprirent le chemin de la maison...`;
         break;
       case 'tempête':
-        suiteHistoire += `<br><br>Le petit garçon décide de persister malgré l'arrivée de la tempête. C'est grâce à sa persévérance, que le petit garçon retrouvera la petite fille ${data.etat} réfugiée dans une grotte. ${siAffame} Ils décidèrent de dormir sur place au chaud, grâce au petit feu que Lyla avait fait à l'aide du kit de secours qu'elle avait emporté.<br><br>C'est au petit matin, vers 6h, que les 2 aventuriers reprirent le chemin de la maison....`;
+        suiteHistoire += `<br><br>Arventure décide de persister malgré l'arrivée de la tempête. Grâce à sa persévérance, le petit garçon retrouva la petite fille ${data.etat} réfugiée dans une grotte. ${siAffame} Ils décidèrent de dormir sur place au chaud, grâce au petit feu que Lyla avait fait à l'aide du kit de secours qu'elle avait emporté.<br><br>C'est au petit matin, vers 6h00, que les 2 aventuriers reprirent le chemin de la maison...`;
         break;
       case 'refuge':
-        suiteHistoire += `<br><br>Le petit téméraire décida de se mettre à l'abri pour la nuit dans le refuge il qu'il a vu. C'est au moment où il ouvra la porte qu'il retomba sur la pauvre petite fille ${data.etat}. ${siAffame}<br><br>C'est le lendemain que les 2 petits aventuriers retrouvèrent le chemin de leur domicile....`;
+        suiteHistoire += `<br><br>Le petit téméraire tomba sur un refuge et décida de se mettre à l'abri pour la nuit. C'est en poussant la porte qu'il découvrit la pauvre petite Lyla complètement ${data.etat}. ${siAffame}<br><br>Bien reposés, les 2 petits aventuriers retrouvèrent le chemin de leur domicile...`;
         break;
     }
     // thas recupération du this
