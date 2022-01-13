@@ -27,7 +27,6 @@ export class GenererHistoireComponent implements OnInit {
   getHistoireService(){
     this.apiService.getHistoire(1).subscribe(response =>{
         this.histoire = response;
-        console.log(response)
     })
   }
 
