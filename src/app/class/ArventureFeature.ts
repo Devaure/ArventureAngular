@@ -120,10 +120,7 @@ export class ArventureFeature {
    * @param suiteHistoire 
    */
   resetPers(suiteHistoire = ""): void {
-    console.log(`${suiteHistoire.length} == ${this.comte?.innerHTML.length + 1}`)
-
     if (suiteHistoire.length == this.comte?.innerHTML.length + 1) {
-      console.log("fin de l'histoire");
       this.circle.style.cssText = "transform: translateX(0vw) rotate(360deg); -webkit-transition: 1s 500ms;";
       this.para.style.overflowY = "visible !important";
       localStorage.setItem("coucou", "0");
@@ -160,9 +157,7 @@ export class ArventureFeature {
     let objetsTrouves2: string;
     this.dataToPass.lieu = lieu;
     this.service.getObjetsTrouves().subscribe((data: any) => {
-
       objetsTrouves = data;
-      console.log("objets ", objetsTrouves);
       objetsTrouves2 = objetsTrouves[this.getRandomInt(objetsTrouves.length - 1)].objet;
       this.dataToPass.objetTrouve = objetsTrouves2;
       this.getApiServEtatPetiteFille();
@@ -231,15 +226,11 @@ export class ArventureFeature {
     });
   }
 
-
-
   /**
    * 
    * @param lieu Function qui permet de générer l'histoire
    */
   genererHistoire(data: any) {
-    console.log(data);
-    
     this.comte.innerHTML;
     this.circle.style.cssText = "transform: translateX(-100vw) rotate(360deg); -webkit-transition: 1s 500ms;";
 
@@ -303,26 +294,20 @@ export class ArventureFeature {
    * @param idCarte 
    */
   suiteHistoire(idCarte: string) {
-    console.log("function suite histoire idCarte", idCarte);
     switch (idCarte) {
       case 'carte1':
-        console.log("suite Histoire carte1");
-
         this.getApiServObjetsTrouves(`${this.getPlaceByName("tempête")}`);
         break;
 
       case 'carte2':
-        console.log("suite Histoire carte2");
         this.getApiServObjetsTrouves(`${this.getPlaceByName("montagne")}`);
         break;
 
       case 'carte3':
-        console.log("suite Histoire carte3");
         this.getApiServObjetsTrouves(`${this.getPlaceByName("forêt")}`);
         break;
 
       case 'carte4':
-        console.log("suite Histoire carte4");
         this.getApiServObjetsTrouves(`${this.getPlaceByName("refuge")}`);
         break;
 
@@ -353,7 +338,6 @@ export class ArventureFeature {
     let elmts = document.getElementsByClassName(query) as HTMLCollectionOf<HTMLImageElement>;
     let allInformation = new Array();
     for (let i = 0; i < elmts.length; i++) {
-
       allInformation[i] = elmts[i].getAttribute("id");
     }
     return allInformation;
@@ -439,11 +423,6 @@ export class ArventureFeature {
   isCollide(pers: DOMRect, img: DOMRect[]): void {
 
     for (let i = 0; i < img.length; i++) {
-      //récupération des informations img et pers 
-      console.log(`img pos top/bottom:  ${img[i].y} , hauteur img: ${img[i].height}`);
-      console.log(`img pos right/left:  ${img[i].x} , largeur img: ${img[i].width}`);
-      console.log(`pers pos top/bottom:  ${pers.y} , hauteur pers: ${pers.height}`);
-      console.log(`pers pos right/left:  ${pers.x} , largeur pers: ${pers.width}`);
 
       if (pers.y + pers.height + img[i].height - this.pad < img[i].height) {
 
@@ -454,8 +433,6 @@ export class ArventureFeature {
         console.log("en dehors en bas");
 
       } else if (pers.x + pers.height - this.pad < img[i].x || pers.x + pers.width > img[i].x) {
-        console.log("carteId", this.takeInformation(this.allInformationImg('img'), this.sizeElemt("element")));
-        console.log("coucou");
         if (localStorage.getItem("coucou") == "0") {
 
           localStorage.setItem("toto", "1");
