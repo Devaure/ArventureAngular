@@ -10,32 +10,32 @@ export class ApiServiceService {
   constructor(private http:HttpClient) { }
 
 
-  getHistoire(id:number){
+  getHistoire(id:number):Observable<object>{
     return this.http.get(`https://localhost:7178/api/Histoires/${id}`);
      
   }
 
-  getMechant():any{
+  getMechant():Observable<object>{
     return this.http.get(`https://localhost:7178/api/AnimalMechants`);
   }
 
-  getObjetsTrouves(){
+  getObjetsTrouves():Observable<object>{
     return this.http.get(`https://localhost:7178/api/ObjetTrouves`);
   }
   
-  getEtatPetiteFille(){
+  getEtatPetiteFille():Observable<object>{
     return this.http.get(`https://localhost:7178/api/EtatPersonnages`);
   }
 
-  getPlaceCarte(lieu:string){
+  getPlaceCarte(lieu:string):Observable<object>{
     return this.http.get(`https://localhost:7178/api/Lieux/GetLieuByName?endroit=${lieu}`);
   }
   
-  getHistoireSiAffame(){
+  getHistoireSiAffame():Observable<object>{
     return this.http.get(`https://localhost:7178/api/TextCookies`);
   }
 
-  getCarte(){
+  getCarte():Observable<object>{
     return this.http.get(`https://localhost:7178/api/Cartes`);
   }
 }

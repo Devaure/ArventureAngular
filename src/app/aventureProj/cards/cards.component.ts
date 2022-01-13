@@ -22,7 +22,6 @@ export class CardsComponent implements OnInit {
   }
   suiteHistoire2(idcard:string):void{
     this.route.navigateByUrl(`/genererHistoire/carte${idcard}`);
- 
     this.getDisplayCard();
 }
 
