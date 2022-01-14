@@ -1,3 +1,4 @@
+import { ɵɵresolveBody } from "@angular/core";
 import { ApiServiceService } from "../services/api-service.service";
 
 export class ArventureFeature {
@@ -11,12 +12,12 @@ export class ArventureFeature {
   waterDrop = document.createElement('i') as HTMLElement;
   interval: any;
   service: ApiServiceService;
-  
+
   constructor(service: ApiServiceService) {
     this.service = service;
   }
 
-  
+
   /**
    * Permet d'être appelé dans le component arventure et d'exécuter ces différentes methodes.
    */
@@ -33,13 +34,13 @@ export class ArventureFeature {
     localStorage.setItem("findepluie", "1");
   }
 
-  getPad():number{
-    let domHeight:number = document.body.clientHeight;
-    if(domHeight>=1080){
+  getPad(): number {
+    let domHeight: number = document.body.clientHeight;
+    if (domHeight >= 1080) {
       return 70;
-    }else if(domHeight>400){
+    } else if (domHeight > 400) {
       return 140;
-    }else{
+    } else {
       return 190;
     }
   }
@@ -62,9 +63,13 @@ export class ArventureFeature {
   startSuiteHistoire(id: string): string | void {
 
     if (id == "carte1") {
-      this.waterDrop = document.createElement('i') as HTMLElement;
-      localStorage.setItem("findepluie", "0");
-      this.interval = setInterval(this.rainFall, 0.5);
+      setTimeout(() => {
+        this.waterDrop = document.createElement('i') as HTMLElement;
+        localStorage.setItem("findepluie", "0");
+        this.interval = setInterval(this.rainFall, 0.5);
+      }, 2000);
+    }else{
+      this.waterDrop.remove();
     }
     this.perso = document.getElementById("element") as HTMLImageElement;
     this.circle = document.querySelector("a.btn-circle") as HTMLElement;
@@ -85,17 +90,19 @@ export class ArventureFeature {
       this.waterDrop.classList.add('fa-tint');
       this.waterDrop.style.left = Math.random() * window.innerWidth + 'px';
       this.waterDrop.style.animationDuration = Math.random() * 1 + 's';
-      this.waterDrop.style.opacity = (Math.random() + 0.4).toString();
-      this.waterDrop.style.fontSize = Math.random() * 15 + 'px';
+      this.waterDrop.style.opacity = (Math.random() + 0.3).toString();
+      this.waterDrop.style.fontSize = Math.random() * 12 + 'px';
+      document.body.appendChild(this.waterDrop);
+      setTimeout(() => {
+        this.waterDrop.remove();
+      }, 6000)
     } else if (localStorage.getItem("findepluie") == "1") {
-      clearInterval(this.interval);
       this.waterDrop.classList.remove('fas');
       this.waterDrop.classList.remove('fa-tint');
+        this.waterDrop.remove();
+        clearInterval(this.interval);
     }
-    document.body.appendChild(this.waterDrop);
-    setTimeout(() => {
-      this.waterDrop.remove();
-    }, 1000)
+   
   }
 
   /**
@@ -250,25 +257,25 @@ export class ArventureFeature {
         suiteHistoire += `en direction du ${data.lieu.endroit} situé à la pointe de la montagne.`;
         break;
     }
-    
-    suiteHistoire += `<br><br>Durant le périple le petit garçon rencontra un méchant ${data.mechant} qui avait très faim. Fort heureusement le petit garçon sorti quelques cookies de son sac qu'il jeta en direction de l'animal affamé afin de se sauver discrètement des griffes de cette bête féroce.<br><br> C'est après de longues heures de marche que le petit garçon trouva un indice lui indiquant qu'il était sur le bon chemin. En effet, il trouva ${data.objetTrouve} de Lyla au sol. Par conséquent, le petit garçon continua son chemin longuement jusqu'à atterrir à une intersection, une à droite et une à gauche. Le petit garçon choisit de faire confiance à son intuition en prenant le chemin de droite.`;
+
+    suiteHistoire += `<br><br>Durant le périple le petit garçon rencontra un méchant ${data.mechant} qui avait très faim. Fort heureusement, le petit garçon sortit quelques cookies de son sac qu'il jeta en direction de l'animal affamé afin de se sauver discrètement des griffes de cette bête féroce.<br><br> C'est après de longues heures de marche que le petit garçon trouva un indice lui indiquant qu'il était sur le bon chemin. En effet, il trouva ${data.objetTrouve} de Lyla au sol. Par conséquent, le petit garçon continua son chemin longuement jusqu'à atterrir à une intersection. Le petit garçon choisit de faire confiance à son intuition en prenant le chemin de droite.`;
 
     switch (data.lieu.endroit) {
       case 'montagne':
       case 'forêt':
-        suiteHistoire += `<br><br>C'est avec persévérance qu'il décida de continuer malgré la nuit et le froid tombant. C'est grâce à ses efforts qu'il retrouva la petite fille ${data.etat} sous une cabane de fortune perdue dans la ${data.lieu.endroit}. ${siAffame} Ils décidèrent tous les deux de passer la nuit sur place, grâce aux vêtements chauds et au kit de survie que Lyla avait emportés.<br><br>C'est au lever du soleil, que les 2 petits aventuriers reprirent le chemin de la maison...`;
+        suiteHistoire += `<br><br>C'est avec persévérance qu'il décida de continuer malgré la nuit et le froid tombant. C'est grâce à ses efforts qu'il retrouva la petite fille ${data.etat} sous une cabane de fortune perdue dans la ${data.lieu.endroit}. ${siAffame} Ils décidèrent tous les deux de passer la nuit sur place grâce aux vêtements chauds et au kit de survie que Lyla avait emportés.<br><br>C'est au lever du soleil, que les 2 petits aventuriers reprirent le chemin de la maison...`;
         break;
       case 'tempête':
         suiteHistoire += `<br><br>Arventure décide de persister malgré l'arrivée de la tempête. Grâce à sa persévérance, le petit garçon retrouva la petite fille ${data.etat} réfugiée dans une grotte. ${siAffame} Ils décidèrent de dormir sur place au chaud, grâce au petit feu que Lyla avait fait à l'aide du kit de secours qu'elle avait emporté.<br><br>C'est au petit matin, vers 6h00, que les 2 aventuriers reprirent le chemin de la maison...`;
         break;
       case 'refuge':
-        suiteHistoire += `<br><br>Le petit téméraire tomba sur un refuge et décida de se mettre à l'abri pour la nuit. C'est en poussant la porte qu'il découvrit la pauvre petite Lyla complètement ${data.etat}. ${siAffame}<br><br>Bien reposés, les 2 petits aventuriers retrouvèrent le chemin de leur domicile...`;
+        suiteHistoire += `<br><br>Le petit téméraire tomba sur un refuge et décida de se mettre à l'abri pour la nuit. C'est en poussant la porte qu'il découvrit la pauvre petite Lyla complètement ${data.etat}. ${siAffame}<br><br>Bien reposés, les petits aventuriers retrouvèrent le chemin de leur domicile...`;
         break;
     }
     // thas recupération du this
     let str: string = suiteHistoire, i: number = 0, isTag: boolean = false, text: string, thas = this;
     (function type(): void {
-      
+
       text = str.slice(0, ++i);
       if (text === str) return;
       thas.comte.innerHTML = text;
@@ -281,7 +288,7 @@ export class ArventureFeature {
       if (char === '<') isTag = true;
       if (char === '>') isTag = false;
       if (isTag) return type();
-      setTimeout(type, 65);
+      setTimeout(type, 60);
 
       thas.resetPers(suiteHistoire);
     }());
