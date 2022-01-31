@@ -25,7 +25,6 @@ histoire:any;
   getHistoireService(){
     this.apiServ.getHistoire(1).subscribe(response =>{
         this.histoire = response;
-        console.log(response)
     })
   }
 }

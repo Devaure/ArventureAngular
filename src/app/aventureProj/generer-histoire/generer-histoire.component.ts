@@ -55,6 +55,7 @@ export class GenererHistoireComponent implements OnInit {
   }
   bground(){
     const id= this.route.snapshot.params['id'];
+    
     let bg:string = "";
     if (id==="carte1"){
       bg='masthead tempete';
@@ -73,7 +74,7 @@ export class GenererHistoireComponent implements OnInit {
 
   son(){
     const id= this.route.snapshot.params['id'];
-    let sn:any;
+    let sn:string;
     if (id==="carte1"){
     sn = "../../../assets/audio/pluie.mp3";
     }

@@ -10,7 +10,7 @@ import { ArventureFeature } from '../../class/ArventureFeature';
 
 })
 export class CardsComponent implements OnInit {
-  cardList:any[];
+ cardList:any[];
  arventure:ArventureFeature;
  id:string;
   constructor(private route:Router, private apiService:ApiServiceService) { 
@@ -29,7 +29,7 @@ export class CardsComponent implements OnInit {
     if(localStorage.getItem("toto") == "1"){
 
       this.id = this.arventure.idCarteCollide();
-      console.log("CArteId", this.id);
+
       if(this.id){
         this.route.navigateByUrl(`/genererHistoire/${this.id}`);
       }else{
@@ -43,7 +43,6 @@ export class CardsComponent implements OnInit {
   getDisplayCard(){ 
     this.apiService.getCarte().subscribe((data:any)=>{
         this.cardList = data;
-        console.log(this.cardList);
     });
   }
 }
